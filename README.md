@@ -14,7 +14,7 @@
 **Ideal user**:  
 *Strive* can be used for a variety of goal and motivational purposes. Users will be people who want to achieve their goals, motivate themselves with chosen rewards, and track their progress in one convenient place.
 ***
-###Motivation behind name
+###Motivation behind Strive
 *Strive* was created because I needed a space to organize all of my goals and tasks. Being able to visually see previously completed goals is very motivating and allows the user to set SMART goals with reasonable timelines.
 ### Roadmap
 In the future, *Strive* will include a rewards system where users can set their own rewards and choose a number of stars to unlock it at.  
