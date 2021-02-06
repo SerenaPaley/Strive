@@ -1,11 +1,25 @@
-# My Personal Project
+# Strive
+*Strive* is a Java made productivity application made for reaching your goals!
 
-## A subtitle
+### Usage
+ *Strive* allows you to set and organize your goals into daily, weekly, monthly and year long goals. Attach a number of stars to each goal as motivation and to set priority.
+***
+**Features**:
+- Add/remove goals from your agenda
+- Check off completed goals
+- Assign stars to goals based on priority
+- Track how many goals you have achieved
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+**Ideal user**:  
+*Strive* can be used for a variety of goal and motivational purposes. Users will be people who want to achieve their goals, motivate themselves with chosen rewards, and track their progress in one convenient place.
+***
+###Motivation behind name
+*Strive* was created because I needed a space to organize all of my goals and tasks. Being able to visually see previously completed goals is very motivating and allows the user to set SMART goals with reasonable timelines.
+### Roadmap
+In the future, *Strive* will include a rewards system where users can set their own rewards and choose a number of stars to unlock it at.  
+
+**Including**:  
+- Visual rewards bar  
+- Personalized rewards
+- Countdown of stars needed for next reward
