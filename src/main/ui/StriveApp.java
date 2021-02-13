@@ -51,6 +51,14 @@ public class StriveApp {
     private void initialize() {
         myAgenda = new Agenda("Serena's Goals");
         userChoice = new Scanner(System.in);
+        Goal test1 = new Goal("test1", Goal.TimeFrame.DAILY, 5);
+        Goal test2 = new Goal("test2", Goal.TimeFrame.WEEKLY, 9);
+        Goal test3 = new Goal("test3", Goal.TimeFrame.MONTHLY, 35);
+        Goal test4 = new Goal("test4", Goal.TimeFrame.YEARLY, 15);
+        myAgenda.addGoal(test1);
+        myAgenda.addGoal(test2);
+        myAgenda.addGoal(test3);
+        myAgenda.addGoal(test4);
     }
 
     // REQUIRES:

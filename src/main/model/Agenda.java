@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Agenda  {
+public class Agenda {
     int numGoals; // the number of goals the user has made so far
     private String name; // name of agenda
 
@@ -30,9 +30,6 @@ public class Agenda  {
     public int getnumGoals() {
         return numGoals;
     }
-
-
-
 
 
     // MODIFIES: this
@@ -68,10 +65,22 @@ public class Agenda  {
     // MODIFIES: this
     // EFFECTS: numerically list current goals
     public void printGoals() {
-        for (int i = 0; i < goalList.size(); i++) {
-            System.out.println("Goal " + (i + 1) + ": " + goalList.get(i).getName());
-        }
+        printCategory(Goal.TimeFrame.DAILY);
+        printCategory(Goal.TimeFrame.WEEKLY);
+        printCategory(Goal.TimeFrame.MONTHLY);
+        printCategory(Goal.TimeFrame.YEARLY);
     }
 
+    // MODIFIES: this
+    // EFFECTS: numerically list current goals
+    public void printCategory(Goal.TimeFrame goaltype) {
+        System.out.println(goaltype);
+        for (int i = 0; i < goalList.size(); i++) {
+            if (goalList.get(i).getTimeFrame() == goaltype) {
+                System.out.println("Goal " + (i + 1) + ": " + goalList.get(i).getName());
+            }
+        } //for
 
+
+    }
 }

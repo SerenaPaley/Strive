@@ -25,6 +25,11 @@ public class Goal {
         return name;
     }
 
+    // EFFECTS: returns name of goal
+    public TimeFrame getTimeFrame() {
+        return timeFrame;
+    }
+
 
 
 }
