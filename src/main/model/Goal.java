@@ -22,12 +22,17 @@ public class Goal {
 
     // EFFECTS: returns name of goal
     public String getName() {
-        return name;
+        return this.name;
     }
 
     // EFFECTS: returns name of goal
     public TimeFrame getTimeFrame() {
         return timeFrame;
+    }
+
+    // EFFECTS: returns number of stars
+    public int getNumStars() {
+        return this.numStars;
     }
 
 

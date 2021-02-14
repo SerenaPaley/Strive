@@ -1,8 +1,10 @@
 package ui;
 
 import model.Agenda;
+import model.CompletedGoals;
 import model.Goal;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class StriveApp {
@@ -11,6 +13,7 @@ public class StriveApp {
    // private char timeFrame;
     //private int numStars;
     private Agenda myAgenda;
+    private Agenda myCompleted;
     private Scanner userChoice;
 
 
@@ -50,6 +53,7 @@ public class StriveApp {
     // EFFECTS: initialized agendas
     private void initialize() {
         myAgenda = new Agenda("Serena's Goals");
+        myCompleted = new Agenda("Completed");
         userChoice = new Scanner(System.in);
         Goal test1 = new Goal("test1", Goal.TimeFrame.DAILY, 5);
         Goal test2 = new Goal("test2", Goal.TimeFrame.WEEKLY, 9);
@@ -71,6 +75,7 @@ public class StriveApp {
         System.out.println("(R)emove goal");
         System.out.println("(U)pdate goal");
         System.out.println("(P)rogress");
+        System.out.println("(C)heck off");
         System.out.println("(Q)uit");
     }
 
@@ -93,6 +98,8 @@ public class StriveApp {
             goUpdate();
         } else if (command.equals("P")) {
             listGoals();
+        } else if (command.equals("C")) {
+            checkOffGoal();
         }
     }
 
@@ -168,6 +175,19 @@ public class StriveApp {
     private void listGoals() {
         myAgenda.printGoals();
     }
+
+    private void checkOffGoal() {
+        myAgenda.printGoals();
+        System.out.println("Which goal is completed?");
+        int finGoal = userChoice.nextInt();
+        userChoice.nextLine();
+        myAgenda.addGoalComplete(finGoal);
+        myAgenda.removeGoal(finGoal);
+    }
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GoalTest {
 
@@ -14,6 +15,17 @@ public class GoalTest {
 
     @Test
     void testConstructor(){
-
+        assertEquals("Wake up early", testGoal.getName());
+        assertEquals(Goal.TimeFrame.DAILY, testGoal.getTimeFrame());
+        assertEquals(5, testGoal.getNumStars());
     }
+
+    @Test
+    void testGetName(){
+        assertEquals("Wake up early", testGoal.getName());
+        assertEquals(Goal.TimeFrame.DAILY, testGoal.getTimeFrame());
+        assertEquals(5, testGoal.getNumStars());
+    }
+
+
 }
