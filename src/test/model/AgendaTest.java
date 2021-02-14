@@ -32,7 +32,6 @@ class AgendaTest {
     @Test
     void testConstructor() {
         assertEquals("myAgenda",testAgenda.getName());
-        assertEquals(0, testAgenda.getNumGoals());
 
         assertEquals(0, testAgenda.getGoalListCompleted().size());
 
@@ -40,44 +39,55 @@ class AgendaTest {
 
     @Test
     void testAddGoal() {
-        assertEquals(0, testAgenda.getNumGoals());
+        assertEquals(0, testAgenda.getGoalList().size());
         testAgenda.addGoal(test1);
-        assertEquals(1, testAgenda.getNumGoals());
+        assertEquals(1, testAgenda.getGoalList().size());
     }
 
     @Test
     void testRemoveGoal() {
-        assertEquals(0, testAgenda.getNumGoals());
+        assertEquals(0, testAgenda.getGoalList().size());
         testAgenda.addGoal(test2);
         testAgenda.addGoal(test3);
         testAgenda.addGoal(test4);
-        assertEquals(3, testAgenda.getNumGoals());
+        assertEquals(3, testAgenda.getGoalList().size());
         testAgenda.removeGoal(2);
-        assertEquals(2, testAgenda.getNumGoals());
+        assertEquals(2, testAgenda.getGoalList().size());
+
+        //test remove method within removeGoal
+        testAgenda.getGoalList().remove(1);
+        assertEquals(1, testAgenda.getGoalList().size());
+    }
+
+    @Test
+    void testRemoveGoalNotValid() {
+        assertEquals(0, testAgenda.getGoalList().size());
+        testAgenda.removeGoal(0);
+        assertEquals(0, testAgenda.getGoalList().size());
     }
 
     @Test
     void testUpdateGoal() {
-        assertEquals(0, testAgenda.getNumGoals());
+        assertEquals(0, testAgenda.getGoalList().size());
         testAgenda.addGoal(test2);
         testAgenda.addGoal(test3);
         testAgenda.addGoal(test4);
-        assertEquals(3, testAgenda.getNumGoals());
+        assertEquals(3, testAgenda.getGoalList().size());
         testAgenda.updateGoal(3, test4);
-        assertEquals(3, testAgenda.getNumGoals());
+        assertEquals(3, testAgenda.getGoalList().size());
         //test update
     }
 
     @Test
     void testGoalSize() {
-        assertEquals(0, testAgenda.getNumGoals());
+        assertEquals(0, testAgenda.getGoalList().size());
         testAgenda.addGoal(test2);
         assertEquals(1,testAgenda.getGoalList().size());
     }
 
     @Test
     void testGoalComplete() {
-        assertEquals(0, testAgenda.getNumGoals());
+        assertEquals(0, testAgenda.getGoalListCompleted().size());
         testAgenda.addGoal(test1);
         testAgenda.addGoal(test2);
         assertEquals(2,testAgenda.getGoalList().size());

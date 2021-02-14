@@ -17,7 +17,6 @@ public class Agenda {
     // EFFECTS: creates a new agenda for goals to be stored in.
     public Agenda(String agendaName) {
         name = agendaName;
-        numGoals = 0;
     }
 
     // EFFECTS: returns name
@@ -25,10 +24,10 @@ public class Agenda {
         return name;
     }
 
-    // EFFECTS: returns number of goals
-    public int getNumGoals() {
-        return numGoals;
-    }
+//    // EFFECTS: returns number of goals
+//    public int getNumGoals() {
+//        return numGoals;
+//    }
 
     // EFFECTS: returns size of goalList
     public ArrayList<Goal> getGoalList() {
@@ -46,7 +45,6 @@ public class Agenda {
     // EFFECTS: adds a new goal to agenda and number of goals is updated
     public Goal addGoal(Goal newGoal) {
         goalList.add(newGoal);
-        numGoals++;
         return newGoal;
     }
 
@@ -56,12 +54,13 @@ public class Agenda {
         completedList.add(goalList.get(goalDone - 1));
     }
 
-    // REQUIRES: at least one goal in goalList
     // MODIFIES: this
     // EFFECTS: removes goal from agenda (based off number in printGoals) and number of goals is updated
     public void removeGoal(int removePos) {
-        goalList.remove(removePos - 1);
-        numGoals--;
+        if (removePos > 0) {
+            goalList.remove(removePos - 1);
+        }
+
     }
 
     // REQUIRES: at least one goal in goalList
