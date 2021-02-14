@@ -82,7 +82,8 @@ public class Agenda {
         //get completed goal
         System.out.println("COMPLETED");
         for (int i = 0; i < completedList.size(); i++) {
-            System.out.println("Finished " + (i + 1) + ": " + completedList.get(i).getName() + " " + completedList.get(i).getNumStars() + " stars");
+            System.out.println("Finished " + (i + 1) + ": " + completedList.get(i).getName() + " "
+                    + completedList.get(i).getNumStars() + " stars");
         } //for
     }
 

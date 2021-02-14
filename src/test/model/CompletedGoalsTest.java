@@ -95,14 +95,17 @@ class CompletedGoalsTest {
         assertEquals(0, testCompletedGoals.getNumGoals());
         testCompletedGoals.addGoal(test1);
         testCompletedGoals.addGoal(test2);
-        assertEquals(2,testCompletedGoals.getGoalListSize());
+        testCompletedGoals.addGoal(test3);
+        assertEquals(3,testCompletedGoals.getGoalListSize());
 
+        testCompletedGoals.addGoalComplete(2);
+        testCompletedGoals.removeGoal(2);
         testCompletedGoals.addGoalComplete(2);
         testCompletedGoals.removeGoal(2);
         assertEquals(1, testCompletedGoals.getNumGoals());
         //check to see if printGoals() is in the output log
         testCompletedGoals.printGoals();
-        //assertEquals("DAILY\n" + "Goal 1: " + test1.getName() + "\n" + "WEEKLY\n" + "MONTHLY\n" + "YEARLY\n" + "COMPLETED\n" + "Finished 1: " + test2.getName() + " " + test2.getNumStars() +  " stars\n", output.toString());
+        assertEquals("DAILY\n" + "Goal 1: " + test1.getName() + "\n" + "WEEKLY\n" + "MONTHLY\n" + "YEARLY\n" + "COMPLETED\n" + "Finished 1: " + test2.getName() + " " + test2.getNumStars() +  " stars\n" + "Finished 2: " + test3.getName() + " " + test3.getNumStars() +  " stars\n", output.toString());
     }
 
     @Test

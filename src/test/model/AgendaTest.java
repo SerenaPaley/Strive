@@ -101,14 +101,17 @@ class AgendaTest {
         assertEquals(0, testAgenda.getNumGoals());
         testAgenda.addGoal(test1);
         testAgenda.addGoal(test2);
-        assertEquals(2,testAgenda.getGoalListSize());
+        testAgenda.addGoal(test3);
+        assertEquals(3,testAgenda.getGoalListSize());
 
+        testAgenda.addGoalComplete(2);
+        testAgenda.removeGoal(2);
         testAgenda.addGoalComplete(2);
         testAgenda.removeGoal(2);
         assertEquals(1, testAgenda.getNumGoals());
         //check to see if printGoals() is in the output log
         testAgenda.printGoals();
-        //assertEquals("DAILY\n" + "Goal 1: " + test1.getName() + "\n" + "WEEKLY\n" + "MONTHLY\n" + "YEARLY\n" + "COMPLETED\n" + "Finished 1: " + test2.getName() + " " + test2.getNumStars() +  " stars\n", output.toString());
+        assertEquals("DAILY\n" + "Goal 1: " + test1.getName() + "\n" + "WEEKLY\n" + "MONTHLY\n" + "YEARLY\n" + "COMPLETED\n" + "Finished 1: " + test2.getName() + " " + test2.getNumStars() +  " stars\n" + "Finished 2: " + test3.getName() + " " + test3.getNumStars() +  " stars\n", output.toString());
     }
 
     @Test
