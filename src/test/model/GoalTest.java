@@ -26,6 +26,4 @@ public class GoalTest {
         assertEquals(Goal.TimeFrame.DAILY, testGoal.getTimeFrame());
         assertEquals(5, testGoal.getNumStars());
     }
-
-
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents an agenda to hold a list of goals and a list of completed goals with a name and number of goals
+
 public class Agenda {
     int numGoals; // the number of goals the user has made so far
     private String name; // name of agenda
@@ -18,10 +20,6 @@ public class Agenda {
         numGoals = 0;
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
-
     // EFFECTS: returns name
     public String getName() {
         return name;
@@ -32,10 +30,14 @@ public class Agenda {
         return numGoals;
     }
 
-
     // EFFECTS: returns size of goalList
-    public int getGoalListSize() {
-        return goalList.size();
+    public ArrayList<Goal> getGoalList() {
+        return goalList;
+    }
+
+    // EFFECTS: returns size of completedList
+    public ArrayList<Goal> getGoalListCompleted() {
+        return completedList;
     }
 
 
@@ -49,10 +51,9 @@ public class Agenda {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a new goal to agenda and number of goals is updated
+    // EFFECTS: adds a new goal to completed goal list and number of goals is updated
     public void addGoalComplete(int goalDone) {
         completedList.add(goalList.get(goalDone - 1));
-
     }
 
     // REQUIRES: at least one goal in goalList
@@ -69,34 +70,4 @@ public class Agenda {
     public void updateGoal(int goalPos, Goal newGoal) {
         goalList.set((goalPos - 1), newGoal);
     }
-
-
-    // MODIFIES: this
-    // EFFECTS: numerically list current goals
-    public void printGoals() {
-        printCategory(Goal.TimeFrame.DAILY);
-        printCategory(Goal.TimeFrame.WEEKLY);
-        printCategory(Goal.TimeFrame.MONTHLY);
-        printCategory(Goal.TimeFrame.YEARLY);
-
-        //get completed goal
-        System.out.println("COMPLETED");
-        for (int i = 0; i < completedList.size(); i++) {
-            System.out.println("Finished " + (i + 1) + ": " + completedList.get(i).getName() + " "
-                    + completedList.get(i).getNumStars() + " stars");
-        } //for
-    }
-
-    // MODIFIES: this
-    // EFFECTS: numerically list current goals
-    public void printCategory(Goal.TimeFrame goalType) {
-        System.out.println(goalType);
-        for (int i = 0; i < goalList.size(); i++) {
-            if (goalList.get(i).getTimeFrame() == goalType) {
-                System.out.println("Goal " + (i + 1) + ": " + goalList.get(i).getName());
-            }
-        } //for
-    }
-
-
 }

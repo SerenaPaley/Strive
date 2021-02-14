@@ -1,5 +1,6 @@
 package model;
 
+// Represents  a single goal with a name/description, timeframe, and number of stars
 public class Goal {
 
     private String name;   // the user's goal
@@ -12,12 +13,11 @@ public class Goal {
 
     private TimeFrame timeFrame;
 
-    //EFFECTS: creates a new goal. including goal itself, timeframe and number of stars
+    //EFFECTS: creates a new goal. including description, timeframe and number of stars
     public Goal(String goal, TimeFrame goalTimeFrame, int numStars) {
         this.name = goal;
         this.timeFrame = goalTimeFrame;
         this.numStars = numStars;
-
     }
 
     // EFFECTS: returns name of goal
@@ -34,7 +34,4 @@ public class Goal {
     public int getNumStars() {
         return this.numStars;
     }
-
-
-
 }

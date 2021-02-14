@@ -1,29 +1,25 @@
 package ui;
 
 import model.Agenda;
-import model.CompletedGoals;
 import model.Goal;
 
-import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+// Console based user interface
 public class StriveApp {
 
-    //private String sayGoal;
-   // private char timeFrame;
-    //private int numStars;
     private Agenda myAgenda;
-    private Agenda myCompleted;
     private Scanner userChoice;
 
-
+    // EFFECTS: runs the Strive application
     public StriveApp() {
         runStrive();
     }
 
 
     // MODIFIES: this
-    // EFFECTS: managing user input
+    // EFFECTS: manages user input
     private void runStrive() {
         boolean quit = false;
         String command = null;
@@ -50,24 +46,16 @@ public class StriveApp {
 
 
     // MODIFIES: this
-    // EFFECTS: initialized agendas
+    // EFFECTS: initialized agenda
     private void initialize() {
         myAgenda = new Agenda("Serena's Goals");
-        myCompleted = new Agenda("Completed");
+
         userChoice = new Scanner(System.in);
-        Goal test1 = new Goal("test1", Goal.TimeFrame.DAILY, 5);
-        Goal test2 = new Goal("test2", Goal.TimeFrame.WEEKLY, 9);
-        Goal test3 = new Goal("test3", Goal.TimeFrame.MONTHLY, 35);
-        Goal test4 = new Goal("test4", Goal.TimeFrame.YEARLY, 15);
-        myAgenda.addGoal(test1);
-        myAgenda.addGoal(test2);
-        myAgenda.addGoal(test3);
-        myAgenda.addGoal(test4);
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+
+
+    // EFFECTS: prints user options
     private void showOptions() {
         System.out.println("\n" + "Let's have a great day!");
         System.out.println("Please choose from");
@@ -79,6 +67,7 @@ public class StriveApp {
         System.out.println("(Q)uit");
     }
 
+    // EFFECTS: prints timeframe options
     private void timeFrameOptions() {
         System.out.println("(D)aily");
         System.out.println("(W)eekly");
@@ -87,7 +76,7 @@ public class StriveApp {
     }
 
 
-
+    // MODIFIES: this
     // EFFECTS: directs next function based on user input
     private void completeTask(String command) {
         if (command.equals("A")) {
@@ -105,7 +94,7 @@ public class StriveApp {
 
 
     // MODIFIES: this
-    // EFFECTS: gets a new goal
+    // EFFECTS: gets a new goal and required input
     private Goal goalInput() {
         System.out.println("Enter new goal:");
         String chooseGoal = userChoice.nextLine();
@@ -146,38 +135,39 @@ public class StriveApp {
         myAgenda.addGoal(goalInput());
     }
 
-
+    //REQUIRES: >= 1 goal in agenda
     // MODIFIES:this
     // EFFECTS: removes goal from list based on number assigned when printed
     private void goRemove() {
-        myAgenda.printGoals();
+        printGoals();
         System.out.println("Which goal number do you want to remove?");
         int removePos = userChoice.nextInt();
         userChoice.nextLine();
         myAgenda.removeGoal(removePos);
-
     }
 
-    // REQUIRES:
+    // REQUIRES: at least one goal in agenda
     // MODIFIES:this
-    // EFFECTS:
+    // EFFECTS: update elements of existing goal
     private void goUpdate() {
-        myAgenda.printGoals();
+        printGoals();
         System.out.println("Which goal do you want to update?");
         int updatePos = userChoice.nextInt();
         userChoice.nextLine();
         myAgenda.updateGoal(updatePos, goalInput());
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+
+    // EFFECTS: prints current goals
     private void listGoals() {
-        myAgenda.printGoals();
+        printGoals();
     }
 
+    // REQUIRES: >= 1 goal in agenda
+    // MODIFIES:this
+    // EFFECTS: marks a goal as complete and moves it to completed list
     private void checkOffGoal() {
-        myAgenda.printGoals();
+        printGoals();
         System.out.println("Which goal is completed?");
         int finGoal = userChoice.nextInt();
         userChoice.nextLine();
@@ -185,15 +175,38 @@ public class StriveApp {
         myAgenda.removeGoal(finGoal);
     }
 
+    // MODIFIES: this
+    // EFFECTS: numerically list current goals into TimeFrame categories
+    public void printGoals() {
+        printCategory(Goal.TimeFrame.DAILY);
+        printCategory(Goal.TimeFrame.WEEKLY);
+        printCategory(Goal.TimeFrame.MONTHLY);
+        printCategory(Goal.TimeFrame.YEARLY);
+
+        ArrayList<Goal> goalList = myAgenda.getGoalList();
+        ArrayList<Goal> completedGoalList = myAgenda.getGoalListCompleted();
 
 
+        //get completed goal
+        System.out.println("COMPLETED");
+        for (int i = 0; i < goalList.size(); i++) {
+            System.out.println("Finished " + (i + 1) + ": " + completedGoalList.get(i).getName() + " "
+                    + completedGoalList.get(i).getNumStars() + " stars");
+        } //for
+    }
 
+    // MODIFIES: this
+    // EFFECTS: numerically list current goals in one category
+    public void printCategory(Goal.TimeFrame goalType) {
+        ArrayList<Goal> goalList = myAgenda.getGoalList();
 
-
-
-
-
-
+        System.out.println(goalType);
+        for (int i = 0; i < goalList.size(); i++) {
+            if (goalList.get(i).getTimeFrame() == goalType) {
+                System.out.println("Goal " + (i + 1) + ": " + goalList.get(i).getName());
+            }
+        } //for
+    }
 }
 
 

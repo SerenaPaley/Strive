@@ -9,13 +9,14 @@
 - Check off completed goals
 - Assign stars to goals based on priority
 - Track how many goals you have achieved
+- Print a categorized list of goals
 
 
 **Ideal user**:  
 *Strive* can be used for a variety of goal and motivational purposes. Users will be people who want to achieve their goals, motivate themselves with chosen rewards, and track their progress in one convenient place.
 ***
-###Motivation Behind Strive
-*Strive* was created because I needed a space to organize all of my goals and tasks. Being able to visually see previously completed goals is very motivating and allows the user to set SMART goals with reasonable timelines.
+### Motivation Behind Strive
+*Strive* was created to be a space to organize all of my goals and tasks. Being able to visually see previously completed goals is very motivating and allows the user to set SMART goals with reasonable timelines.
 ***
 ### Roadmap
 In the future, *Strive* will include a rewards system where users can set their own rewards and choose a number of stars to unlock it at.  
@@ -26,7 +27,7 @@ In the future, *Strive* will include a rewards system where users can set their 
 - Countdown of stars needed for next reward
 ***
 
-###User Stories   
+### User Stories   
  
 - As a user, I want to be able to add goals to my agenda
 - As a user, I want to be able to remove goals from my agenda
