@@ -94,29 +94,29 @@ public class StriveApp {
 
         System.out.println("When will this be completed?");
         timeFrameOptions();
-        String timeFrame = userChoice.next();
-        timeFrame = timeFrame.toUpperCase();
+        String timeFrame = userChoice.next().toUpperCase();
         //validate
         while (!(timeFrame.equals("D") || timeFrame.equals("W") ||  timeFrame.equals("M") || timeFrame.equals("Y"))) {
-            System.out.println("Invalid time frame");
             timeFrameOptions();
-            timeFrame = userChoice.next();
-            timeFrame = timeFrame.toUpperCase();
+            timeFrame = userChoice.next().toUpperCase();
         }
 
         switch (timeFrame) {
             case "D": timeFrameEnum = Goal.TimeFrame.valueOf("DAILY");
+                break;
             case "W": timeFrameEnum = Goal.TimeFrame.valueOf("WEEKLY");
+                break;
             case "M": timeFrameEnum = Goal.TimeFrame.valueOf("MONTHLY");
+                break;
             case "Y": timeFrameEnum = Goal.TimeFrame.valueOf("YEARLY");
+                break;
         }
 
         //stars
         System.out.println("How many stars is this goal?");
         int numStars = userChoice.nextInt();
         //create new goal
-        Goal myGoal = new Goal(chooseGoal, timeFrameEnum, numStars);
-        return myGoal;
+        return new Goal(chooseGoal, timeFrameEnum, numStars);
     }
 
     // MODIFIES: this
