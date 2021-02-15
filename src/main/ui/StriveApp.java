@@ -176,7 +176,7 @@ public class StriveApp {
 
         //get completed goal
         System.out.println("COMPLETED");
-        for (int i = 0; i < goalList.size(); i++) {
+        for (int i = 0; i < completedGoalList.size(); i++) {
             System.out.println("Finished " + (i + 1) + ": " + completedGoalList.get(i).getName() + " "
                     + completedGoalList.get(i).getNumStars() + " stars");
         } //for
