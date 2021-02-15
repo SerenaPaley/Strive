@@ -5,14 +5,15 @@ public class Goal {
 
     private String name;   // the user's goal
     private int numStars;  // the number of stars for a goal
-    private boolean completed; //true if a goal is completed, false otherwise
 
-    public enum TimeFrame { //public!!!
+    // EFFECTS: an enumerated type for time frame. Either daily, weekly, monthly, or yearly
+    public enum TimeFrame {
         DAILY, WEEKLY, MONTHLY, YEARLY;
     }
 
     private TimeFrame timeFrame;
 
+    // REQUIRES: agenda name length > 0
     //EFFECTS: creates a new goal. including description, timeframe and number of stars
     public Goal(String goal, TimeFrame goalTimeFrame, int numStars) {
         this.name = goal;

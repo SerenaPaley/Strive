@@ -33,4 +33,4 @@ In the future, *Strive* will include a rewards system where users can set their 
 - As a user, I want to be able to remove goals from my agenda
 - As a user, I want to be able to update existing goals
 - As a user, I want to be able to mark a goal as completed
-- As a user, I want to be able to view a list of goals separated into daily, weekly, monthly, and yearly.
+- As a user, I want to be able to view a list of goals separated into daily, weekly, monthly, yearly, and completed goals.

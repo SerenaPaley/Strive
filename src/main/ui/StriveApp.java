@@ -6,7 +6,7 @@ import model.Goal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Console based user interface
+// Console based user interface for Strive
 public class StriveApp {
 
     private Agenda myAgenda;
@@ -16,7 +16,6 @@ public class StriveApp {
     public StriveApp() {
         runStrive();
     }
-
 
     // MODIFIES: this
     // EFFECTS: manages user input
@@ -43,17 +42,12 @@ public class StriveApp {
         System.out.println("Great work - See you tomorrow!");
     }
 
-
-
     // MODIFIES: this
     // EFFECTS: initialized agenda
     private void initialize() {
         myAgenda = new Agenda("Serena's Goals");
-
         userChoice = new Scanner(System.in);
     }
-
-
 
     // EFFECTS: prints user options
     private void showOptions() {
@@ -75,7 +69,6 @@ public class StriveApp {
         System.out.println("(Y)early");
     }
 
-
     // MODIFIES: this
     // EFFECTS: directs next function based on user input
     private void completeTask(String command) {
@@ -91,7 +84,6 @@ public class StriveApp {
             checkOffGoal();
         }
     }
-
 
     // MODIFIES: this
     // EFFECTS: gets a new goal and required input
@@ -122,12 +114,10 @@ public class StriveApp {
         //stars
         System.out.println("How many stars is this goal?");
         int numStars = userChoice.nextInt();
-        //userChoice.nextLine();
-
+        //create new goal
         Goal myGoal = new Goal(chooseGoal, timeFrameEnum, numStars);
         return myGoal;
     }
-
 
     // MODIFIES: this
     // EFFECTS: adds a new goal to user's agenda
@@ -135,7 +125,6 @@ public class StriveApp {
         myAgenda.addGoal(goalInput());
     }
 
-    //REQUIRES: >= 1 goal in agenda
     // MODIFIES:this
     // EFFECTS: removes goal from list based on number assigned when printed
     private void goRemove() {
@@ -146,7 +135,7 @@ public class StriveApp {
         myAgenda.removeGoal(removePos);
     }
 
-    // REQUIRES: at least one goal in agenda
+    // REQUIRES: >= 1 goal in agenda
     // MODIFIES:this
     // EFFECTS: update elements of existing goal
     private void goUpdate() {
@@ -156,7 +145,6 @@ public class StriveApp {
         userChoice.nextLine();
         myAgenda.updateGoal(updatePos, goalInput());
     }
-
 
     // EFFECTS: prints current goals
     private void listGoals() {
@@ -177,7 +165,7 @@ public class StriveApp {
 
     // MODIFIES: this
     // EFFECTS: numerically list current goals into TimeFrame categories
-    public void printGoals() {
+    private void printGoals() {
         printCategory(Goal.TimeFrame.DAILY);
         printCategory(Goal.TimeFrame.WEEKLY);
         printCategory(Goal.TimeFrame.MONTHLY);
@@ -185,7 +173,6 @@ public class StriveApp {
 
         ArrayList<Goal> goalList = myAgenda.getGoalList();
         ArrayList<Goal> completedGoalList = myAgenda.getGoalListCompleted();
-
 
         //get completed goal
         System.out.println("COMPLETED");
@@ -196,8 +183,8 @@ public class StriveApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: numerically list current goals in one category
-    public void printCategory(Goal.TimeFrame goalType) {
+    // EFFECTS: numerically list current goals in one timeframe category
+    private void printCategory(Goal.TimeFrame goalType) {
         ArrayList<Goal> goalList = myAgenda.getGoalList();
 
         System.out.println(goalType);

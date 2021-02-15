@@ -17,7 +17,6 @@ class AgendaTest {
     Goal test3;
     Goal test4;
 
-
     @BeforeEach
     void setup() {
         testAgenda = new Agenda("myAgenda");
@@ -25,16 +24,12 @@ class AgendaTest {
         test2 = new Goal("eat healthy", Goal.TimeFrame.WEEKLY, 9);
         test3 = new Goal("do a puzzle", Goal.TimeFrame.MONTHLY, 35);
         test4 = new Goal("learn to cook", Goal.TimeFrame.YEARLY, 15);
-
-
     }
 
     @Test
     void testConstructor() {
         assertEquals("myAgenda",testAgenda.getName());
-
         assertEquals(0, testAgenda.getGoalListCompleted().size());
-
     }
 
     @Test
@@ -47,14 +42,15 @@ class AgendaTest {
     @Test
     void testRemoveGoal() {
         assertEquals(0, testAgenda.getGoalList().size());
+        //add goals
         testAgenda.addGoal(test2);
         testAgenda.addGoal(test3);
         testAgenda.addGoal(test4);
         assertEquals(3, testAgenda.getGoalList().size());
+        //remove goal
         testAgenda.removeGoal(2);
         assertEquals(2, testAgenda.getGoalList().size());
-
-        //test remove method within removeGoal
+        //check size
         testAgenda.getGoalList().remove(1);
         assertEquals(1, testAgenda.getGoalList().size());
     }
@@ -75,7 +71,6 @@ class AgendaTest {
         assertEquals(3, testAgenda.getGoalList().size());
         testAgenda.updateGoal(3, test4);
         assertEquals(3, testAgenda.getGoalList().size());
-        //test update
     }
 
     @Test
@@ -93,5 +88,12 @@ class AgendaTest {
         assertEquals(2,testAgenda.getGoalList().size());
         testAgenda.addGoalComplete(2);
         assertEquals(1, testAgenda.getGoalListCompleted().size());
+    }
+
+    @Test
+    void testGetGoalList() {
+        assertEquals(0, testAgenda.getGoalListCompleted().size());
+        testAgenda.addGoal(test1);
+        assertEquals(1, testAgenda.getGoalList().size());
     }
 }
