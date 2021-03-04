@@ -34,3 +34,5 @@ In the future, *Strive* will include a rewards system where users can set their 
 - As a user, I want to be able to update existing goals
 - As a user, I want to be able to mark a goal as completed
 - As a user, I want to be able to view a list of goals separated into daily, weekly, monthly, yearly, and completed goals.
+- As a user, I want to be able to save my agenda filled with goals to a file
+- As a user,  I want to have the option to load a saved agenda from a file when the application starts
