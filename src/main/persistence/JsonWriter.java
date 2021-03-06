@@ -24,7 +24,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: tries to open file and throws FileNotFoundException if the file cannot be located
     public void open() throws FileNotFoundException {
-       writer = new PrintWriter(new File(endPoint));
+        writer = new PrintWriter(new File(endPoint));
     }
 
     // MODIFIES: this
