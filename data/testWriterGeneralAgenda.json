@@ -1,15 +1,15 @@
 {
-  "goals" : [
-    {
-      "name" : "Sleep early",
-      "timeframe" : "WEEKLY",
-      "number of stars" : 5
-    },
-    {
-      "name" : "Eat healthy",
-      "timeframe" : "DAILY",
-      "number of stars" : 3
-    }
-  ],
-  "name" : "My agenda"
+    "name": "My agenda",
+    "goals": [
+        {
+            "timeframe": "DAILY",
+            "name": "Eat healthy",
+            "number of stars": 3
+        },
+        {
+            "timeframe": "WEEKLY",
+            "name": "Sleep early",
+            "number of stars": 5
+        }
+    ]
 }
