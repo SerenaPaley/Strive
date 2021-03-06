@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.CanWrite;
+
 import java.util.ArrayList;
 
 // Represents an agenda to hold a list of goals and a list of completed goals with a name
 
-public class Agenda {
+public class Agenda implements CanWrite {
     private String name; // name of agenda
 
     ArrayList<Goal> goalList = new ArrayList<Goal>();
@@ -58,4 +62,28 @@ public class Agenda {
     public void updateGoal(int goalPos, Goal newGoal) {
         goalList.set((goalPos - 1), newGoal);
     }
+
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("goals", goalsToJson());
+        return json;
+    }
+
+
+    // EFFECTS: returns goals in this agenda as a JSON array
+    private JSONArray goalsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Goal g : goalList) {
+            jsonArray.put(g.toJson());
+        }
+
+        return jsonArray;
+    }
+
+
 }

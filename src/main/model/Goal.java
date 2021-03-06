@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.CanWrite;
+
 // Represents  a single goal with a name/description, timeframe, and number of stars
-public class Goal {
+public class Goal implements CanWrite {
 
     private String name;   // the user's goal
     private int numStars;  // the number of stars for a goal
@@ -34,5 +37,15 @@ public class Goal {
     // EFFECTS: returns number of stars
     public int getNumStars() {
         return this.numStars;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("timeframe", timeFrame);
+        json.put("number of stars", numStars);
+        return json;
     }
 }

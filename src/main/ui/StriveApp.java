@@ -2,18 +2,27 @@ package ui;
 
 import model.Agenda;
 import model.Goal;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 // Console based user interface for Strive
 public class StriveApp {
-
+    private static final String JSON_STORE = "./data/agenda.json";
     private Agenda myAgenda;
     private Scanner userChoice;
+    JsonReader jsonReader;
+    JsonWriter jsonWriter;
 
     // EFFECTS: runs the Strive application
-    public StriveApp() {
+    public StriveApp() throws FileNotFoundException {
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
         runStrive();
     }
 
@@ -58,6 +67,8 @@ public class StriveApp {
         System.out.println("(U)pdate goal");
         System.out.println("(P)rogress");
         System.out.println("(C)heck off");
+        System.out.println("(S)ave to file");
+        System.out.println("(L)oad from file");
         System.out.println("(Q)uit");
     }
 
@@ -82,7 +93,12 @@ public class StriveApp {
             listGoals();
         } else if (command.equals("C")) {
             checkOffGoal();
+        } else if (command.equals("S")) {
+            saveAgenda();
+        } else if (command.equals("L")) {
+            loadAgenda();
         }
+
     }
 
     // MODIFIES: this
@@ -194,7 +210,36 @@ public class StriveApp {
             }
         } //for
     }
+
+
+    // EFFECTS: saves the current agenda to a file
+    private void saveAgenda() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myAgenda);
+            jsonWriter.close();
+            System.out.println(":Saved! " + myAgenda.getName() + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: unable to write to file " + JSON_STORE);
+        }
+
+    }
+
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    private void loadAgenda() {
+        try {
+            myAgenda = jsonReader.read();
+            System.out.println("Successfully loaded " + myAgenda.getName() + "from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Error: unable to reade from file: " + JSON_STORE);
+        }
+    }
+
+
 }
+
 
 
 

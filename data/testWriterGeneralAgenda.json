@@ -1,0 +1,15 @@
+{
+  "goals" : [
+    {
+      "name" : "Sleep early",
+      "timeframe" : "WEEKLY",
+      "number of stars" : 5
+    },
+    {
+      "name" : "Eat healthy",
+      "timeframe" : "DAILY",
+      "number of stars" : 3
+    }
+  ],
+  "name" : "My agenda"
+}
