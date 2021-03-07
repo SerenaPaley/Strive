@@ -231,7 +231,7 @@ public class StriveApp {
     private void loadAgenda() {
         try {
             myAgenda = jsonReader.read();
-            System.out.println("Successfully loaded " + myAgenda.getName() + "from " + JSON_STORE);
+            System.out.println("Successfully loaded " + myAgenda.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Error: unable to reade from file: " + JSON_STORE);
         }
