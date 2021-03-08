@@ -2,7 +2,8 @@ package ui;
 
 import java.io.FileNotFoundException;
 
-// Main
+// Main class
+// CITATION: modeled from the JsonSerializatioinDemo
 public class Main {
     public static void main(String[] args) {
         try {

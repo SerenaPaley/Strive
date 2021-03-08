@@ -4,6 +4,7 @@ import model.Agenda;
 import model.Goal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+//Tests for Json
 // CITATION: modeled from the JsonSerializatioinDemo
 public class JsonTest {
     protected void checkGoal(String name, Goal.TimeFrame timeframe, int numStars, Goal goal) {

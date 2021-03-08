@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Console based user interface for Strive
+// CITATION: methods using JSON are modeled from the JsonSerializatioinDemo
 public class StriveApp {
     private static final String JSON_STORE = "./data/agenda.json";
     private Agenda myAgenda;
@@ -218,16 +219,16 @@ public class StriveApp {
             jsonWriter.open();
             jsonWriter.write(myAgenda);
             jsonWriter.close();
-            System.out.println(":Saved! " + myAgenda.getName() + JSON_STORE);
+            System.out.println("Saved! " + myAgenda.getName() + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Error: unable to write to file " + JSON_STORE);
         }
 
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+
+    // MODIFIES: this
+    // EFFECTS: loads agenda from file
     private void loadAgenda() {
         try {
             myAgenda = jsonReader.read();

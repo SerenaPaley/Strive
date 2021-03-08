@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.json.*;
 
+// Represents a JSON reader for data persistence in Agenda
 // CITATION: modeled from the JsonSerializatioinDemo
 public class JsonReader {
     private String source;
@@ -20,7 +21,7 @@ public class JsonReader {
     }
 
     //EFFECTS: reads Agenda from file and return it.
-    // Throw IOException is an error occurs while reading the file
+    // Throw IOException if an error occurs while reading the file
     public Agenda read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -33,7 +34,6 @@ public class JsonReader {
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
-
         return contentBuilder.toString();
     }
 

@@ -27,7 +27,7 @@ public class JsonWriter {
         writer = new PrintWriter(new File(endPoint));
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, agenda
     // EFFECTS: writes a JSON version of Agenda
     public void write(Agenda agenda) {
         JSONObject json = agenda.toJson();
@@ -45,6 +45,5 @@ public class JsonWriter {
     public void saveToFile(String json) {
         writer.print(json);
     }
-
 
 }

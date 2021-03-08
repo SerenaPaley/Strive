@@ -7,6 +7,7 @@ import persistence.CanWrite;
 import java.util.ArrayList;
 
 // Represents an agenda to hold a list of goals and a list of completed goals with a name
+// CITATION: methods using JSON are modeled from the JsonSerializatioinDemo
 
 public class Agenda implements CanWrite {
     private String name; // name of agenda
@@ -48,6 +49,7 @@ public class Agenda implements CanWrite {
         completedList.add(goalList.get(goalDone - 1));
     }
 
+    // REQUIRES: at least one goal in goalList
     // MODIFIES: this
     // EFFECTS: removes goal from agenda (based off number in printGoals)
     public void removeGoal(int removePos) {
@@ -63,16 +65,13 @@ public class Agenda implements CanWrite {
         goalList.set((goalPos - 1), newGoal);
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("goals", goalsToJson());
         return json;
     }
-
 
     // EFFECTS: returns goals in this agenda as a JSON array
     private JSONArray goalsToJson() {
@@ -84,6 +83,5 @@ public class Agenda implements CanWrite {
 
         return jsonArray;
     }
-
 
 }

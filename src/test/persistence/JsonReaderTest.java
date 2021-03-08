@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+//Tests for Json reader from file
 //CITATION: tests modeled from JsonSerializatioinDemo
 class JsonReaderTest extends JsonTest {
 
