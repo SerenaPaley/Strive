@@ -2,14 +2,19 @@
     "name": "Serena's Goals",
     "goals": [
         {
-            "timeframe": "MONTHLY",
-            "name": "updated",
-            "number of stars": 68
+            "timeframe": "COMPLETED",
+            "name": "t2",
+            "number of stars": 2
         },
         {
-            "timeframe": "WEEKLY",
-            "name": "t5",
-            "number of stars": 5
+            "timeframe": "COMPLETED",
+            "name": "t4",
+            "number of stars": 4
+        },
+        {
+            "timeframe": "COMPLETED",
+            "name": "t3",
+            "number of stars": 3
         }
     ]
 }

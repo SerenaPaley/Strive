@@ -46,7 +46,15 @@ public class Agenda implements CanWrite {
     // MODIFIES: this
     // EFFECTS: adds a new goal to completed goal list
     public void addGoalComplete(int goalDone) {
-        completedList.add(goalList.get(goalDone - 1));
+        Goal goalToAdd = goalList.get(goalDone - 1);
+        goalToAdd.setTimeFrame(Goal.TimeFrame.COMPLETED);
+        completedList.add(goalToAdd);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a goal to completed goal list
+    public void addGoalComplete(Goal goal) {
+        completedList.add(goal);
     }
 
     // REQUIRES: at least one goal in goalList
@@ -79,6 +87,9 @@ public class Agenda implements CanWrite {
 
         for (Goal g : goalList) {
             jsonArray.put(g.toJson());
+        }
+        for (Goal c : completedList) {
+            jsonArray.put(c.toJson());
         }
 
         return jsonArray;

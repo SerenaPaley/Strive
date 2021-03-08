@@ -47,7 +47,7 @@ public class JsonReader {
 
     // MODIFIES: agenda
     // EFFECTS: checks the goals in JSON object and adds them to the agenda
-    private  void addGoals(Agenda agenda, JSONObject jsonObject) {
+    private void addGoals(Agenda agenda, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("goals");
         for (Object json : jsonArray) {
             JSONObject nextGoal = (JSONObject) json;
@@ -62,7 +62,11 @@ public class JsonReader {
         Goal.TimeFrame timeframe = Goal.TimeFrame.valueOf(jsonObject.getString("timeframe"));
         int numStars = jsonObject.getInt("number of stars");
         Goal goal = new Goal(name, timeframe, numStars);
-        agenda.addGoal(goal);
+        if (timeframe == Goal.TimeFrame.COMPLETED) {
+            agenda.addGoalComplete(goal);
+        } else {
+            agenda.addGoal(goal);
+        }
     }
 
 }

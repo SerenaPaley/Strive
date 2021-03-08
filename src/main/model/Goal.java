@@ -11,7 +11,7 @@ public class Goal implements CanWrite {
 
     // EFFECTS: an enumerated type for time frame. Either daily, weekly, monthly, or yearly
     public enum TimeFrame {
-        DAILY, WEEKLY, MONTHLY, YEARLY;
+        DAILY, WEEKLY, MONTHLY, YEARLY, COMPLETED;
     }
 
     private TimeFrame timeFrame;
@@ -37,6 +37,11 @@ public class Goal implements CanWrite {
     // EFFECTS: returns number of stars
     public int getNumStars() {
         return this.numStars;
+    }
+
+    // EFFECTS: sets the timeframe
+    public void setTimeFrame(TimeFrame timeFrame) {
+        this.timeFrame = timeFrame;
     }
 
 
