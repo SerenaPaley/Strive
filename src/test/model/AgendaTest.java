@@ -88,6 +88,8 @@ class AgendaTest {
         assertEquals(2,testAgenda.getGoalList().size());
         testAgenda.addGoalComplete(2);
         assertEquals(1, testAgenda.getGoalListCompleted().size());
+        testAgenda.addGoalComplete(test3);
+        assertEquals(2, testAgenda.getGoalListCompleted().size());
     }
 
     @Test

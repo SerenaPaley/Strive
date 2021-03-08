@@ -11,6 +11,7 @@ public class JsonTest {
         assertEquals(name, goal.getName());
         assertEquals(timeframe, goal.getTimeFrame());
         assertEquals(numStars, goal.getNumStars());
+
     }
 
 }
