@@ -130,7 +130,7 @@ public class StriveApp {
         }
 
         //stars
-        System.out.println("How many stars is this goal?");
+        System.out.println("How many stars is this goal?"); // must be a number >= 0
         int numStars = userChoice.nextInt();
         //create new goal
         return new Goal(chooseGoal, timeFrameEnum, numStars);
