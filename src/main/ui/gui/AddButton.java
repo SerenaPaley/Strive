@@ -1,5 +1,7 @@
 package ui.gui;
 
+import model.Goal;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,9 +23,14 @@ public class AddButton {
     public void createAddButton(JPanel panel) {
         this.panel = panel;
 //        addButton = new JButton(addString);
-        addButton.setPreferredSize(new Dimension(300, 300));
+        addButton.setPreferredSize(new Dimension(200, 200));
         addButton.setLocation(0,HEIGHT / 2 + 5);
         addButton.setLocation(WIDTH / 2, HEIGHT / 2 + 200);
         this.panel.add(addButton);
     }
+
+//    public Goal retrieveGoal(//something from the Jtextfield) {
+//
+//
+//    }
 }
