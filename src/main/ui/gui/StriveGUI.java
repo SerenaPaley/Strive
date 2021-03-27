@@ -3,6 +3,7 @@ package ui.gui;
 import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
+import persistence.JsonWriter;
 import ui.StriveApp;
 
 import javax.swing.*;
@@ -28,6 +29,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private JButton saveButton;
     private JButton loadButton;
     private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
+    private static final String JSON_STORE = "./data/agenda.json";
     private Agenda agenda;
     private static final String addString = "Add Goal";
     private JTextField nametextField;
@@ -54,6 +57,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         frame.setSize(WIDTH,HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
 
         //create list
         baseList = new DefaultListModel();
@@ -282,12 +287,12 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    striveApp.getJsonWriter().open();
-                    striveApp.getJsonWriter().write(striveApp.getMyAgenda());
-                    striveApp.getJsonWriter().close();
-                    System.out.println("Saved! " + striveApp.getMyAgenda().getName() + striveApp.getJsonStore());
-                } catch (FileNotFoundException d) {
-                    System.out.println("Error: unable to write to file " + striveApp.getJsonStore());
+                    jsonWriter.open();
+                    jsonWriter.write(agenda);
+                    jsonWriter.close();
+                    System.out.println("Saved! " + agenda.getName() + JSON_STORE);
+                } catch (FileNotFoundException s) {
+                    System.out.println("Error: unable to write to file " + JSON_STORE);
                 }
 
             }
@@ -308,12 +313,13 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Agenda temp = jsonReader.read();
-                    striveApp.setMyAgenda(temp);
-                   // System.out.println("Successfully loaded " + striveApp.getMyAgenda().getName() + " from " + striveApp.getJsonStore());
+                    agenda = jsonReader.read();
+                    System.out.println("Successfully loaded " + agenda.getName() + " from " + JSON_STORE);
                 } catch (IOException d) {
-                    //System.out.println("Error: unable to reade from file: " + striveApp.getJsonStore());
+                    System.out.println("Error: unable to reade from file: " + JSON_STORE);
                 }
+
+                convertAgendaToList();
 
                 //reset
 
