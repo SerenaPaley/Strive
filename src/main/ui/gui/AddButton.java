@@ -4,20 +4,30 @@ import model.Goal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AddButton {
+public class AddButton extends Tool {
 
     private JButton addButton;
     private static final String addString = "Add Goal";
     private static int HEIGHT = 500;
     private static int WIDTH = 500;
     private JPanel panel;
+    private TextField textField;
+    private StriveGUI striveGUI;
 
 
     public AddButton() {
         //this.panel = panel;
         addButton = new JButton(addString);
         //createAddButton(panel);
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                striveGUI.getBaseList().addElement(textField.getTextField());
+
+            }
+        });
     }
 
     public void createAddButton(JPanel panel) {
@@ -33,4 +43,10 @@ public class AddButton {
 //
 //
 //    }
+
+
+    public void actionPerformed(ActionEvent e) {
+        striveGUI.getBaseList().addElement(textField.getTextField());
+
+    }
 }

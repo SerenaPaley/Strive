@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TextField extends Tool implements ActionListener, DocumentListener {
+
+
     private JTextField textField;
     private boolean enabled = false;
     private StriveGUI striveGUI;
@@ -60,5 +62,9 @@ public class TextField extends Tool implements ActionListener, DocumentListener 
         textField.setLocation(0,HEIGHT / 2 + 150);
         textField.setLocation(WIDTH / 2, HEIGHT / 2 + 400);
         this.panel.add(textField);
+    }
+
+    public JTextField getTextField() {
+        return textField;
     }
 }
