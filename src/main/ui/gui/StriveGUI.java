@@ -16,6 +16,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private static final String removeString = "Remove goal";
     private JButton addButton;
+    private JButton removeButton;
     private static final String addString = "Add Goal";
     private JTextField nametextField;
     private JTextField tftextField;
@@ -85,6 +86,9 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         addButton();
         addButtonLocation();
 
+        removeButton();
+        removeButtonLocation();
+
 
         nameText();
         nameTextLocation();
@@ -106,9 +110,9 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     //add button ------------------------------------------------
 
     public void addButton() {
-        //this.panel = panel;
+
         addButton = new JButton(addString);
-        //createAddButton(panel);
+
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 baseList.addElement(makeGoal(nametextField, tftextField, startextField));
@@ -125,6 +129,36 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     //add button ------------------------------------------------
+
+
+    //remove button ------------------------------------------------
+
+    public void removeButton() {
+
+        removeButton = new JButton(removeString);
+        removeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int index = goalList.getSelectedIndex();
+                baseList.remove(index);
+                baseList.removeElement(index);
+                System.out.println("I am in the action listener");
+
+            }
+        });
+    }
+
+    public void removeButtonLocation() {
+        removeButton.setPreferredSize(new Dimension(200, 200));
+        removeButton.setLocation((WIDTH / 2), HEIGHT / 2 + 400);
+        buttonPanel.add(removeButton);
+    }
+
+    //remove button ------------------------------------------------
+
+
+
+
+
 
 
     // name textfield ------------------------------------------------
@@ -172,13 +206,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         return nametextField.getText() + ", " + tftextField.getText() + ", " + startextField.getText() + " stars";
     }
 
-
-//    public String convertTimeframe(JTextField tftextField) {
-//        String
-//        if (tftextField.equals("D")) {
-//
-//        }
-//    }
 
     public JList getGoalList() {
         return goalList;
