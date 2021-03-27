@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
@@ -14,6 +16,10 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private static final String removeString = "Remove goal";
     private JButton addButton;
+    private static final String addString = "Add Goal";
+    private JTextField nametextField;
+    private JTextField tftextField;
+    private JTextField startextField;
     private JScrollPane scrollPane;
     private JTextField newGoal;
     private JPanel buttonPanel;
@@ -43,20 +49,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
         //for each goal n goal list from phase 2 add it here
 
-
-
         //make list
         createList();
-
-//        //Create a panel for buttons at the bottom
-//        buttonPanel = new JPanel();
-//        this.buttonPanel.setLayout(new GridBagLayout());
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.insets = new Insets(4,75,4,75);
-//        buttonPanel.setBounds(0,(HEIGHT),WIDTH, (HEIGHT / 2) + 100);
-//        buttonPanel.setLayout(new BoxLayout(buttonPanel,
-//                BoxLayout.LINE_AXIS));
 
         //create button
         createButtons();
@@ -87,15 +81,20 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         c.insets = new Insets(4,75,4,75);
         buttonPanel.setBounds(0,(HEIGHT),WIDTH, (HEIGHT / 2) + 100);
 
-        c.gridy = 0;
-        c.gridx = 0;
-        AddButton addButton = new AddButton();
-        addButton.createAddButton(buttonPanel);
 
-        c.gridy = 1;
-        c.gridx = 1;
-        TextField textField = new TextField(addButton);
-        textField.createButton(buttonPanel);
+        addButton();
+        addButtonLocation();
+
+
+        nameText();
+        nameTextLocation();
+
+
+        timeframeText();
+        timeframeTextLocation();
+
+        starText();
+        starTextLocation();
 
 
 
@@ -103,6 +102,83 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         add(scrollPane, BorderLayout.CENTER);
 
     }
+
+    //add button ------------------------------------------------
+
+    public void addButton() {
+        //this.panel = panel;
+        addButton = new JButton(addString);
+        //createAddButton(panel);
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                baseList.addElement(makeGoal(nametextField, tftextField, startextField));
+
+            }
+        });
+    }
+
+    public void addButtonLocation() {
+        addButton.setPreferredSize(new Dimension(200, 200));
+        //addButton.setLocation(0,HEIGHT / 2 + 5);
+        addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
+        buttonPanel.add(addButton);
+    }
+
+    //add button ------------------------------------------------
+
+
+    // name textfield ------------------------------------------------
+
+    public void nameText() {
+        nametextField = new JTextField();
+    }
+
+    public void nameTextLocation() {
+        nametextField.setPreferredSize(new Dimension(300, 100));
+        nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
+        buttonPanel.add(nametextField);
+    }
+// name textfield ------------------------------------------------
+
+    // timeframe textfield ------------------------------------------------
+
+    public void timeframeText() {
+        tftextField = new JTextField();
+
+    }
+
+    public void timeframeTextLocation() {
+        tftextField.setPreferredSize(new Dimension(300, 100));
+        tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
+        buttonPanel.add(tftextField);
+    }
+// timeframe textfield ------------------------------------------------
+
+    // star textfield ------------------------------------------------
+
+    public void starText() {
+        startextField = new JTextField();
+    }
+
+    public void starTextLocation() {
+        startextField.setPreferredSize(new Dimension(300, 100));
+        startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
+        buttonPanel.add(startextField);
+    }
+// star textfield ------------------------------------------------
+
+
+    public String makeGoal(JTextField nametextField, JTextField tftextField, JTextField startextField) {
+        return nametextField.getText() + ", " + tftextField.getText() + ", " + startextField.getText() + " stars";
+    }
+
+
+//    public String convertTimeframe(JTextField tftextField) {
+//        String
+//        if (tftextField.equals("D")) {
+//
+//        }
+//    }
 
     public JList getGoalList() {
         return goalList;
@@ -112,25 +188,24 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         return baseList;
     }
 
-
-
-
-    //effects blah blah blah
-    public void makeGUI() {
-
-//        JFrame frame = new JFrame("Strive");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        //Create and set up the content pane.
-//        JComponent newContentPane = new StriveGUI();
-//        //newContentPane.setOpaque(true); //content panes must be opaque
-//        frame.setContentPane(newContentPane);
-
-//        //show panel
-//        frame.add(scrollPane);
-//        frame.pack();
-//        frame.setVisible(true);
+    public String getNameText() {
+        return nametextField.getText();
     }
+
+    public String getTimeframeText() {
+        return tftextField.getText();
+    }
+
+
+
+
+
+
+
+//    //effects blah blah blah
+//    public void makeGUI() {
+//
+//    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -143,7 +218,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
 
 
-//        } );
+
     }
 }
 
