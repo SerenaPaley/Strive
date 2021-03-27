@@ -1,11 +1,17 @@
 package ui.gui;
 
+import model.Agenda;
+import persistence.JsonReader;
+import ui.StriveApp;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 //CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
@@ -13,14 +19,21 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private JList goalList;
     private DefaultListModel baseList;
+    private StriveApp striveApp;
 
     private static final String removeString = "Remove goal";
     private JButton addButton;
     private JButton removeButton;
+    private JButton saveButton;
+    private JButton loadButton;
+    private JsonReader jsonReader;
     private static final String addString = "Add Goal";
     private JTextField nametextField;
     private JTextField tftextField;
     private JTextField startextField;
+    private JLabel name;
+    private JLabel tf;
+    private JLabel stars;
     private JScrollPane scrollPane;
     private JTextField newGoal;
     private JPanel buttonPanel;
@@ -36,19 +49,12 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
-
-        //Create and set up the content pane.
-        //JComponent newContentPane = new StriveGUI();
-        //newContentPane.setOpaque(true); //content panes must be opaque
-        //frame.setContentPane(newContentPane);
         //create list
         baseList = new DefaultListModel();
         baseList.addElement("Test goal");
         baseList.addElement("Test goal1");
         baseList.addElement("Test goal2");
         //add from phase 2
-
-        //for each goal n goal list from phase 2 add it here
 
         //make list
         createList();
@@ -79,26 +85,53 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         this.buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(4,75,4,75);
-        buttonPanel.setBounds(0,(HEIGHT),WIDTH, (HEIGHT / 2) + 100);
+        c.insets = new Insets(3,0,3,0);
+        buttonPanel.setBounds(0,HEIGHT / 2,WIDTH, HEIGHT);
 
-
+        c.gridx = 0;
+        c.gridy = 0;
         addButton();
         addButtonLocation();
 
+        c.gridx = 0;
+        c.gridy = 1;
         removeButton();
         removeButtonLocation();
 
+        saveButton();
+        saveButtonLocation();
 
+        loadButton();
+        loadButtonLocation();
+
+
+        c.gridx = 1;
+        c.gridy = 0;
+        nameLabel();
+
+        c.gridx = 1;
+        c.gridy = 1;
         nameText();
         nameTextLocation();
 
+        c.gridx = 2;
+        c.gridy = 0;
+        tfLabel();
 
+        c.gridx = 2;
+        c.gridy = 1;
         timeframeText();
         timeframeTextLocation();
 
+        c.gridx = 3;
+        c.gridy = 1;
+        starsLabel();
+
+        c.gridx = 3;
+        c.gridy = 0;
         starText();
         starTextLocation();
+
 
 
 
@@ -110,9 +143,9 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     //add button ------------------------------------------------
 
     public void addButton() {
-
         addButton = new JButton(addString);
-
+        addButton.setBackground(Color.PINK);
+        addButton.setOpaque(true);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 baseList.addElement(makeGoal(nametextField, tftextField, startextField));
@@ -123,8 +156,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public void addButtonLocation() {
         addButton.setPreferredSize(new Dimension(200, 200));
-        //addButton.setLocation(0,HEIGHT / 2 + 5);
-        addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
+        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(addButton);
     }
 
@@ -136,12 +168,15 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     public void removeButton() {
 
         removeButton = new JButton(removeString);
+
+        removeButton.setBackground(new Color(0,165, 190));
+        removeButton.setOpaque(true);
         removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int index = goalList.getSelectedIndex();
                 baseList.remove(index);
                 baseList.removeElement(index);
-                System.out.println("I am in the action listener");
+                //System.out.println("I am in the action listener");
 
             }
         });
@@ -149,7 +184,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public void removeButtonLocation() {
         removeButton.setPreferredSize(new Dimension(200, 200));
-        removeButton.setLocation((WIDTH / 2), HEIGHT / 2 + 400);
+        //removeButton.setLocation((WIDTH / 2), HEIGHT / 2 + 400);
         buttonPanel.add(removeButton);
     }
 
@@ -169,7 +204,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public void nameTextLocation() {
         nametextField.setPreferredSize(new Dimension(300, 100));
-        nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
+        //nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
         buttonPanel.add(nametextField);
     }
 // name textfield ------------------------------------------------
@@ -183,7 +218,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public void timeframeTextLocation() {
         tftextField.setPreferredSize(new Dimension(300, 100));
-        tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
+        //tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(tftextField);
     }
 // timeframe textfield ------------------------------------------------
@@ -196,7 +231,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public void starTextLocation() {
         startextField.setPreferredSize(new Dimension(300, 100));
-        startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
+        //startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(startextField);
     }
 // star textfield ------------------------------------------------
@@ -207,6 +242,81 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
 
+    public void nameLabel() {
+        name = new JLabel("Goal Name");
+        //name.setLocation(((WIDTH / 2) + 100), HEIGHT / 2 + 380);
+        buttonPanel.add(name);
+    }
+
+    public void tfLabel() {
+        tf = new JLabel("Time Frame");
+       // tf.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
+        buttonPanel.add(tf);
+    }
+
+    public void starsLabel() {
+        stars = new JLabel("Number of Stars");
+        //stars.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
+        buttonPanel.add(stars);
+    }
+
+    public void saveButton() {
+        saveButton = new JButton("Save List");
+        saveButton.setBackground(Color.PINK);
+        saveButton.setOpaque(true);
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    striveApp.getJsonWriter().open();
+                    striveApp.getJsonWriter().write(striveApp.getMyAgenda());
+                    striveApp.getJsonWriter().close();
+                    System.out.println("Saved! " + striveApp.getMyAgenda().getName() + striveApp.getJsonStore());
+                } catch (FileNotFoundException d) {
+                    System.out.println("Error: unable to write to file " + striveApp.getJsonStore());
+                }
+
+            }
+        });
+    }
+
+    public void saveButtonLocation() {
+        saveButton.setPreferredSize(new Dimension(200, 200));
+        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
+        buttonPanel.add(saveButton);
+    }
+
+
+    public void loadButton() {
+        loadButton = new JButton("Load List");
+        loadButton.setBackground(Color.PINK);
+        loadButton.setOpaque(true);
+        loadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Agenda temp = jsonReader.read();
+                    striveApp.setMyAgenda(temp);
+                   // System.out.println("Successfully loaded " + striveApp.getMyAgenda().getName() + " from " + striveApp.getJsonStore());
+                } catch (IOException d) {
+                    //System.out.println("Error: unable to reade from file: " + striveApp.getJsonStore());
+                }
+
+                //reset
+
+
+            }
+        });
+    }
+
+    public void loadButtonLocation() {
+        loadButton.setPreferredSize(new Dimension(200, 200));
+        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
+        buttonPanel.add(loadButton);
+    }
+
+
+
+
+    //getters and setters
     public JList getGoalList() {
         return goalList;
     }
@@ -225,15 +335,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
 
 
-
-
-
-
-//    //effects blah blah blah
-//    public void makeGUI() {
-//
-//    }
-
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
@@ -242,9 +343,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     public static void main(String[] args) {
         //SwingUtilities.invokeLater(new Runnable() {
         new StriveGUI();
-
-
-
 
     }
 }

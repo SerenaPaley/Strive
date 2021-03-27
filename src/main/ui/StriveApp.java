@@ -15,10 +15,29 @@ import java.io.IOException;
 // CITATION: methods using JSON are modeled from the JsonSerializatioinDemo
 public class StriveApp {
     private static final String JSON_STORE = "./data/agenda.json";
+
+
+
     private Agenda myAgenda;
     private Scanner userChoice;
     JsonReader jsonReader;
     JsonWriter jsonWriter;
+
+    public Agenda getMyAgenda() {
+        return myAgenda;
+    }
+
+    public JsonWriter getJsonWriter() {
+        return jsonWriter;
+    }
+
+    public String getJsonStore() {
+        return JSON_STORE;
+    }
+
+    public void setMyAgenda(Agenda myAgenda) {
+        this.myAgenda = myAgenda;
+    }
 
     // EFFECTS: runs the Strive application
     public StriveApp() throws FileNotFoundException {
