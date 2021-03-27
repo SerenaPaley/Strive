@@ -1,6 +1,7 @@
 package ui.gui;
 
 import model.Agenda;
+import model.Goal;
 import persistence.JsonReader;
 import ui.StriveApp;
 
@@ -27,6 +28,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private JButton saveButton;
     private JButton loadButton;
     private JsonReader jsonReader;
+    private Agenda agenda;
     private static final String addString = "Add Goal";
     private JTextField nametextField;
     private JTextField tftextField;
@@ -37,9 +39,13 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private JScrollPane scrollPane;
     private JTextField newGoal;
     private JPanel buttonPanel;
+    private int index;
     private static int WIDTH = 400;
     private static int HEIGHT = 400;
 
+    //private String nameTrueText = nametextField.getText();
+    //private String tfTrueText = tftextField.getText();
+    //private String starTrueText = startextField.getText();
 
     public StriveGUI() {
 
@@ -51,9 +57,9 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
         //create list
         baseList = new DefaultListModel();
-        baseList.addElement("Test goal");
-        baseList.addElement("Test goal1");
-        baseList.addElement("Test goal2");
+//        baseList.addElement("Test goal");
+//        baseList.addElement("Test goal1");
+//        baseList.addElement("Test goal2");
         //add from phase 2
 
         //make list
@@ -87,6 +93,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(3,0,3,0);
         buttonPanel.setBounds(0,HEIGHT / 2,WIDTH, HEIGHT);
+        agenda = new Agenda("Serena's Goals");
 
         c.gridx = 0;
         c.gridy = 0;
@@ -148,7 +155,14 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         addButton.setOpaque(true);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                baseList.addElement(makeGoal(nametextField, tftextField, startextField));
+                String timeframeForGoal = tftextField.getText();
+                Goal goalToAdd = new Goal(nametextField.getText(), convertStringToTimeframe(timeframeForGoal),Integer.parseInt(startextField.getText()));
+                //System.out.println("here above");
+                //agenda = new Agenda("Serena's Goals");
+                agenda.addGoal(goalToAdd);
+                //System.out.println("I made it here");
+                convertAgendaToList();
+                //baseList.addElement(makeGoal(nametextField, tftextField, startextField));
 
             }
         });
@@ -173,18 +187,19 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         removeButton.setOpaque(true);
         removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int index = goalList.getSelectedIndex();
+                index = goalList.getSelectedIndex();
                 baseList.remove(index);
                 baseList.removeElement(index);
                 //System.out.println("I am in the action listener");
-
+                agenda.removeGoal(index+1);
+                //System.out.println("I made it here");
+                convertAgendaToList();
             }
         });
     }
 
     public void removeButtonLocation() {
         removeButton.setPreferredSize(new Dimension(200, 200));
-        //removeButton.setLocation((WIDTH / 2), HEIGHT / 2 + 400);
         buttonPanel.add(removeButton);
     }
 
@@ -203,7 +218,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     public void nameTextLocation() {
-        nametextField.setPreferredSize(new Dimension(300, 100));
+        nametextField.setPreferredSize(new Dimension(100, 100));
         //nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
         buttonPanel.add(nametextField);
     }
@@ -217,7 +232,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     public void timeframeTextLocation() {
-        tftextField.setPreferredSize(new Dimension(300, 100));
+        tftextField.setPreferredSize(new Dimension(100, 100));
         //tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(tftextField);
     }
@@ -230,15 +245,15 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     public void starTextLocation() {
-        startextField.setPreferredSize(new Dimension(300, 100));
+        startextField.setPreferredSize(new Dimension(100, 100));
         //startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(startextField);
     }
 // star textfield ------------------------------------------------
 
 
-    public String makeGoal(JTextField nametextField, JTextField tftextField, JTextField startextField) {
-        return nametextField.getText() + ", " + tftextField.getText() + ", " + startextField.getText() + " stars";
+    public String makeGoal(String nameTrueText, String tfTrueText, String starTrueText) {
+        return nameTrueText + ", " + tfTrueText + ", " + starTrueText + " stars";
     }
 
 
@@ -280,7 +295,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     public void saveButtonLocation() {
-        saveButton.setPreferredSize(new Dimension(200, 200));
+        saveButton.setPreferredSize(new Dimension(100, 100));
         //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(saveButton);
     }
@@ -308,10 +323,57 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
     public void loadButtonLocation() {
-        loadButton.setPreferredSize(new Dimension(200, 200));
+        loadButton.setPreferredSize(new Dimension(100, 100));
         //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(loadButton);
     }
+
+    //1 = add, 2 = remove
+    public void convertAgendaToList() {
+        for (Goal goal: agenda.getGoalList()) {
+            int star = goal.getNumStars();
+             String newGoal = makeGoal(goal.getName(),convertTimeframe(goal.getTimeFrame()),convertNumStars(star));
+                    baseList.addElement(newGoal);
+        }
+    }
+
+    public String convertTimeframe(Goal.TimeFrame timeframe) {
+        if (timeframe.equals(Goal.TimeFrame.DAILY)) {
+            return "daily";
+        } else  if (timeframe.equals(Goal.TimeFrame.WEEKLY)) {
+            return "weekly";
+        } else  if (timeframe.equals(Goal.TimeFrame.MONTHLY)) {
+            return "monthly";
+        } else if (timeframe.equals(Goal.TimeFrame.YEARLY)) {
+            return "yearly";
+        } else if (timeframe.equals(Goal.TimeFrame.COMPLETED)) {
+            return "completed";
+        }
+        return "";
+    }
+
+    public Goal.TimeFrame convertStringToTimeframe(String timeframe) {
+        if (timeframe.equals("daily")) {
+            return Goal.TimeFrame.DAILY;
+        } else  if (timeframe.equals("weekly")) {
+            return Goal.TimeFrame.WEEKLY;
+        } else  if (timeframe.equals("monthly")) {
+            return Goal.TimeFrame.MONTHLY;
+        } else if (timeframe.equals("yearly")) {
+            return Goal.TimeFrame.YEARLY;
+        } else if (timeframe.equals("completed")) {
+            return Goal.TimeFrame.COMPLETED;
+        }
+        return Goal.TimeFrame.DAILY;
+    }
+
+    public String convertNumStars(int stars) {
+        return String.valueOf(stars);
+    }
+
+//    public String convertStringtoInt(String stars) {
+//        return stars;
+//    }
 
 
 
