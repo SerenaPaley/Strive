@@ -79,7 +79,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         frame.pack();
         frame.setVisible(true);
     }
-    // REQUIRES:
+
     // MODIFIES: this
     // EFFECTS: creates the list panel for goals
     public void createList() {
@@ -98,19 +98,13 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         buttonPanel = new JPanel();
         this.buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(3,0,3,0);
+        //c.fill = GridBagConstraints.HORIZONTAL;
+        //c.insets = new Insets(3,0,3,0);
         buttonPanel.setBounds(0,HEIGHT / 2, WIDTH, HEIGHT);
-        //buttonPanel.setBackground(Color.CYAN);
         agenda = new Agenda("Serena's Goals");
 
-        c.gridx = 0;
-        c.gridy = 0;
-        addButton();
-        addButtonLocation();
+        addButtonMethods();
 
-        c.gridx = 0;
-        c.gridy = 1;
         removeButton();
         removeButtonLocation();
 
@@ -120,44 +114,35 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         loadButton();
         loadButtonLocation();
 
-
-        c.gridx = 1;
-        c.gridy = 0;
         nameLabel();
 
-        c.gridx = 1;
-        c.gridy = 1;
         nameText();
         nameTextLocation();
 
-        c.gridx = 2;
-        c.gridy = 0;
         tfLabel();
 
-        c.gridx = 2;
-        c.gridy = 1;
         timeframeText();
         timeframeTextLocation();
 
-        c.gridx = 3;
-        c.gridy = 1;
         starsLabel();
 
-        c.gridx = 3;
-        c.gridy = 0;
         starText();
         starTextLocation();
 
-
-
-
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(WIDTH,HEIGHT / 2,WIDTH,HEIGHT/2));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(WIDTH,HEIGHT / 2,WIDTH,HEIGHT / 2));
         add(scrollPane, BorderLayout.CENTER);
-
     }
 
+    // EFFECTS: calls methods to add and change location of the add button
+    private void addButtonMethods() {
+        addButton();
+        addButtonLocation();
+    }
+
+    // REQUIRES: chooseing a timeframe of daily, weekly, monthly or yearly
     // MODIFIES: this
     // EFFECTS: creates a button which adds a goal to the list when clicked. Also plays a sounds when clicked
+
     public void addButton() {
         addButton = new JButton(addString);
         addButton.setBackground(new Color(0,165, 190));
@@ -165,14 +150,12 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String timeframeForGoal = tftextField.getText();
-                Goal goalToAdd = new Goal(nametextField.getText(), convertStringToTimeframe(timeframeForGoal),Integer.parseInt(startextField.getText()));
-                //System.out.println("here above");
-                //agenda = new Agenda("Serena's Goals");
+                int starValue = Integer.parseInt(startextField.getText());
+                Goal.TimeFrame stringToTf = convertStringToTimeframe(timeframeForGoal);
+                Goal goalToAdd = new Goal(nametextField.getText(),stringToTf,starValue);
                 agenda.addGoal(goalToAdd);
-                //System.out.println("I made it here");
                 convertAgendaToList();
-                //baseList.addElement(makeGoal(nametextField, tftextField, startextField));
-
+               //sound
                 playsound();
                 nametextField.setText("");
                 tftextField.setText("");
@@ -203,12 +186,13 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 baseList.remove(index);
                 baseList.removeElement(index);
                 //System.out.println("I am in the action listener");
-                agenda.removeGoal(index+1);
+                agenda.removeGoal(index + 1);
                 //System.out.println("I made it here");
                 convertAgendaToList();
             }
         });
     }
+
     // MODIFIES: this
     // EFFECTS: changes location and size of remove button
     public void removeButtonLocation() {
@@ -349,8 +333,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         baseList.clear();
         for (Goal goal: agenda.getGoalList()) {
             int star = goal.getNumStars();
-             String newGoal = makeGoal(goal.getName(),convertTimeframe(goal.getTimeFrame()),convertNumStars(star));
-             baseList.addElement(newGoal);
+            String newGoal = makeGoal(goal.getName(),convertTimeframe(goal.getTimeFrame()),convertNumStars(star));
+            baseList.addElement(newGoal);
         }
     }
 

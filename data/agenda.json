@@ -1,8 +1,20 @@
 {
     "name": "Serena's Goals",
-    "goals": [{
-        "timeframe": "DAILY",
-        "name": "t1",
-        "number of stars": 4
-    }]
+    "goals": [
+        {
+            "timeframe": "WEEKLY",
+            "name": "t2",
+            "number of stars": 2
+        },
+        {
+            "timeframe": "YEARLY",
+            "name": "t4",
+            "number of stars": 4
+        },
+        {
+            "timeframe": "DAILY",
+            "name": "abc",
+            "number of stars": 567
+        }
+    ]
 }
