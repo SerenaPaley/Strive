@@ -46,11 +46,13 @@ public class JsonWriterTest extends JsonTest{
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralAgenda() {
         try {
             Agenda agenda = new Agenda("My agenda");
             agenda.addGoal(new Goal("Eat healthy", Goal.TimeFrame.DAILY,3));
             agenda.addGoal(new Goal("Sleep early", Goal.TimeFrame.WEEKLY,5));
+            agenda.addGoalComplete(new Goal("Sleep early", Goal.TimeFrame.COMPLETED,5));
+
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralAgenda.json");
             writer.open();
             writer.write(agenda);
@@ -61,6 +63,7 @@ public class JsonWriterTest extends JsonTest{
             assertEquals("My agenda", agenda.getName());
             List<Goal> goals = agenda.getGoalList();
             assertEquals(2, agenda.getGoalList().size());
+            assertEquals(1, agenda.getGoalListCompleted().size());
             checkGoal("Eat healthy", Goal.TimeFrame.DAILY, 3, goals.get(0));
             checkGoal("Sleep early", Goal.TimeFrame.WEEKLY, 5, goals.get(1));
         } catch (IOException e) {

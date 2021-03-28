@@ -16,6 +16,7 @@ class AgendaTest {
     Goal test2;
     Goal test3;
     Goal test4;
+    Goal test5;
 
     @BeforeEach
     void setup() {
@@ -24,6 +25,7 @@ class AgendaTest {
         test2 = new Goal("eat healthy", Goal.TimeFrame.WEEKLY, 9);
         test3 = new Goal("do a puzzle", Goal.TimeFrame.MONTHLY, 35);
         test4 = new Goal("learn to cook", Goal.TimeFrame.YEARLY, 15);
+        test5 = new Goal("find a house", Goal.TimeFrame.COMPLETED, 100);
     }
 
     @Test

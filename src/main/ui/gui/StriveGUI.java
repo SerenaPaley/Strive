@@ -19,7 +19,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
-//CITATION: modeled off of List Demo Project
+// CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
 // represents a graphical user interface for strive
@@ -29,7 +29,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private DefaultListModel baseList;
     //private StriveApp striveApp;
 
-    private static final String removeString = "Remove goal";
+    private static final String removeString = "Remove Goal";
     private JButton addButton;
     private JButton removeButton;
     private JButton saveButton;
@@ -51,7 +51,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private static String SOUND = "./data/magic-chime-01.wav";
     private int index;
     private static int WIDTH = 300;
-    private static int HEIGHT = 300;
+    private static int HEIGHT = 200;
 
     // EFFECTS: runs the Strive GUI
     public StriveGUI() {
@@ -88,7 +88,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         goalList.addListSelectionListener(this);
         goalList.setVisibleRowCount(20);
         scrollPane = new JScrollPane(goalList);
-        scrollPane.setBounds(0,0, WIDTH, HEIGHT / 2);
+        scrollPane.setBounds(550,0, WIDTH, HEIGHT);
     }
 
     // MODIFIES: this
@@ -147,6 +147,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         addButton = new JButton(addString);
         addButton.setBackground(new Color(0,165, 190));
         addButton.setOpaque(true);
+        addButton.setFont(new Font("Arial", Font.BOLD, 28));
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String timeframeForGoal = tftextField.getText();
@@ -160,7 +161,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 nametextField.setText("");
                 tftextField.setText("");
                 startextField.setText("");
-
             }
         });
     }
@@ -180,6 +180,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         removeButton = new JButton(removeString);
         removeButton.setBackground(new Color(0,165, 190));
         removeButton.setOpaque(true);
+        removeButton.setFont(new Font("Arial", Font.BOLD, 28));
         removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 index = goalList.getSelectedIndex();
@@ -209,7 +210,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // MODIFIES: this
     // EFFECTS: changes location and size for name text field
     public void nameTextLocation() {
-        nametextField.setPreferredSize(new Dimension(100, 100));
+        nametextField.setPreferredSize(new Dimension(150, 75));
         //nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
         buttonPanel.add(nametextField);
     }
@@ -223,7 +224,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // MODIFIES: this
     // EFFECTS: changes location and size for time frame text field
     public void timeframeTextLocation() {
-        tftextField.setPreferredSize(new Dimension(100, 100));
+        tftextField.setPreferredSize(new Dimension(100, 75));
         //tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(tftextField);
     }
@@ -236,7 +237,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // MODIFIES: this
     // EFFECTS: changes location and size for star text field
     public void starTextLocation() {
-        startextField.setPreferredSize(new Dimension(100, 100));
+        startextField.setPreferredSize(new Dimension(100, 75));
         //startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(startextField);
     }
@@ -397,7 +398,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // MODIFIES: this
     // EFFECTS: used .wav file to play a sound
     // CITATION: used SOUND: downloaded from Sound Jay https://www.soundjay.com/magic-sound-effect.html
-    // CITATION: method modled from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
+    // CITATION: method modeled from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
     public void playsound() {
 
         try {
@@ -407,7 +408,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
             clip.start();
         } catch (Exception ex) {
             System.out.println("Error with playing sound.");
-            ex.printStackTrace();
         }
     }
 
@@ -421,7 +421,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // MODIFIES: this
     // EFFECTS: runs the Strive GUI
     public static void main(String[] args) {
-        //SwingUtilities.invokeLater(new Runnable() {
         new StriveGUI();
     }
 }

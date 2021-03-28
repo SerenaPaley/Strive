@@ -10,6 +10,11 @@
             "timeframe": "WEEKLY",
             "name": "Sleep early",
             "number of stars": 5
+        },
+        {
+            "timeframe": "COMPLETED",
+            "name": "Sleep early",
+            "number of stars": 5
         }
     ]
 }
