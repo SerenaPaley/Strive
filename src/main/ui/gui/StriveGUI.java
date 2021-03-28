@@ -22,7 +22,7 @@ import javax.sound.sampled.AudioSystem;
 // CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
-// represents a graphical user interface for strive
+// represents a graphical user interface for Strive
 public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private JList goalList;
