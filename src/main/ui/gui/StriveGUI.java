@@ -22,6 +22,7 @@ import javax.sound.sampled.AudioSystem;
 //CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
+// represents a graphical user interface for strive
 public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private JList goalList;
@@ -52,10 +53,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private static int WIDTH = 400;
     private static int HEIGHT = 400;
 
-    //private String nameTrueText = nametextField.getText();
-    //private String tfTrueText = tftextField.getText();
-    //private String starTrueText = startextField.getText();
-
     public StriveGUI() {
 
         super(new BorderLayout());
@@ -68,10 +65,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
         //create list
         baseList = new DefaultListModel();
-//        baseList.addElement("Test goal");
-//        baseList.addElement("Test goal1");
-//        baseList.addElement("Test goal2");
-        //add from phase 2
 
         //make list
         createList();
@@ -79,14 +72,15 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         //create button
         createButtons();
 
-
         //show panel
         frame.add(scrollPane);
         frame.add(buttonPanel);
         frame.pack();
         frame.setVisible(true);
     }
-
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates the list panel for goals
     public void createList() {
         goalList = new JList(baseList);
         goalList.setSelectedIndex(0);
@@ -96,6 +90,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         scrollPane.setBounds(0,0, WIDTH, HEIGHT / 2);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the button pannel and adds buttons to it
     public void createButtons() {
         //Create a panel for buttons at the bottom
         buttonPanel = new JPanel();
@@ -103,7 +99,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(3,0,3,0);
-        buttonPanel.setBounds(0,HEIGHT / 2,WIDTH, HEIGHT);
+        buttonPanel.setBounds(0,HEIGHT / 2, WIDTH, HEIGHT);
+        //buttonPanel.setBackground(Color.CYAN);
         agenda = new Agenda("Serena's Goals");
 
         c.gridx = 0;
@@ -153,13 +150,13 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
 
 
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(WIDTH,HEIGHT / 2,WIDTH,HEIGHT));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(WIDTH,HEIGHT / 2,WIDTH,HEIGHT/2));
         add(scrollPane, BorderLayout.CENTER);
 
     }
 
-    //add button ------------------------------------------------
-
+    // MODIFIES: this
+    // EFFECTS: creates a button which adds a goal to the list when clicked. Also plays a sounds when clicked
     public void addButton() {
         addButton = new JButton(addString);
         addButton.setBackground(Color.PINK);
@@ -176,27 +173,27 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 //baseList.addElement(makeGoal(nametextField, tftextField, startextField));
 
                 playsound();
-                //nametextField.setText("");
+                nametextField.setText("");
+                tftextField.setText("");
+                startextField.setText("");
 
             }
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes the location and size of add button
     public void addButtonLocation() {
         addButton.setPreferredSize(new Dimension(200, 200));
-        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
+        addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(addButton);
     }
 
-    //add button ------------------------------------------------
 
-
-    //remove button ------------------------------------------------
-
+    // MODIFIES: this
+    // EFFECTS: creates a button which removes a goal from the list when clicked
     public void removeButton() {
-
         removeButton = new JButton(removeString);
-
         removeButton.setBackground(new Color(0,165, 190));
         removeButton.setOpaque(true);
         removeButton.addActionListener(new ActionListener() {
@@ -211,84 +208,86 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
             }
         });
     }
-
+    // MODIFIES: this
+    // EFFECTS: changes location and size of remove button
     public void removeButtonLocation() {
         removeButton.setPreferredSize(new Dimension(200, 200));
         buttonPanel.add(removeButton);
     }
 
-    //remove button ------------------------------------------------
 
-
-
-
-
-
-
-    // name textfield ------------------------------------------------
-
+    // EFFECTS: creates a text field for the goal name
     public void nameText() {
         nametextField = new JTextField();
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes location and size for name text field
     public void nameTextLocation() {
         nametextField.setPreferredSize(new Dimension(100, 100));
         //nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
         buttonPanel.add(nametextField);
     }
-// name textfield ------------------------------------------------
 
-    // timeframe textfield ------------------------------------------------
 
+    // EFFECTS: creates a text field for the goal time frame
     public void timeframeText() {
         tftextField = new JTextField();
-
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes location and size for time frame text field
     public void timeframeTextLocation() {
         tftextField.setPreferredSize(new Dimension(100, 100));
         //tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(tftextField);
     }
-// timeframe textfield ------------------------------------------------
 
-    // star textfield ------------------------------------------------
-
+    // EFFECTS: creates a text field for the number of stars a goal has
     public void starText() {
         startextField = new JTextField();
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes location and size for star text field
     public void starTextLocation() {
         startextField.setPreferredSize(new Dimension(100, 100));
         //startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(startextField);
     }
-// star textfield ------------------------------------------------
 
-
+    // MODIFIES: this
+    // EFFECTS: concatenates the name, time frame and star text fields into a single string
     public String makeGoal(String nameTrueText, String tfTrueText, String starTrueText) {
         return nameTrueText + ", " + tfTrueText + ", " + starTrueText + " stars";
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: adds a name label to button panel
     public void nameLabel() {
         name = new JLabel("Goal Name");
         //name.setLocation(((WIDTH / 2) + 100), HEIGHT / 2 + 380);
         buttonPanel.add(name);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a time frame label to button panel
     public void tfLabel() {
         tf = new JLabel("Time Frame");
        // tf.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
         buttonPanel.add(tf);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a star label to button panel
     public void starsLabel() {
         stars = new JLabel("Number of Stars");
         //stars.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
         buttonPanel.add(stars);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a button which saves the goal list
     public void saveButton() {
         saveButton = new JButton("Save List");
         saveButton.setBackground(Color.PINK);
@@ -308,13 +307,16 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes loction and size of save button
     public void saveButtonLocation() {
         saveButton.setPreferredSize(new Dimension(100, 100));
         //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(saveButton);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: creates a button which loads a saved goal list
     public void loadButton() {
         loadButton = new JButton("Load List");
         loadButton.setBackground(Color.PINK);
@@ -325,36 +327,34 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                     agenda = jsonReader.read();
                     System.out.println("Successfully loaded " + agenda.getName() + " from " + JSON_STORE);
                 } catch (IOException d) {
-                    System.out.println("Error: unable to reade from file: " + JSON_STORE);
+                    System.out.println("Error: unable to read from file: " + JSON_STORE);
                 }
-
                 convertAgendaToList();
-
-                //reset
-
-
             }
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes location and size of load button
     public void loadButtonLocation() {
         loadButton.setPreferredSize(new Dimension(100, 100));
         //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(loadButton);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: converts an agenda to strings of individual goals
     public void convertAgendaToList() {
         baseList.clear();
         for (Goal goal: agenda.getGoalList()) {
             int star = goal.getNumStars();
              String newGoal = makeGoal(goal.getName(),convertTimeframe(goal.getTimeFrame()),convertNumStars(star));
-
              baseList.addElement(newGoal);
-
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes time frame to a string
     public String convertTimeframe(Goal.TimeFrame timeframe) {
         if (timeframe.equals(Goal.TimeFrame.DAILY)) {
             return "daily";
@@ -370,6 +370,8 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         return "";
     }
 
+    // MODIFIES: this
+    // EFFECTS: converts a string to a time frame
     public Goal.TimeFrame convertStringToTimeframe(String timeframe) {
         if (timeframe.equals("daily")) {
             return Goal.TimeFrame.DAILY;
@@ -389,13 +391,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         return String.valueOf(stars);
     }
 
-//    public String convertStringtoInt(String stars) {
-//        return stars;
-//    }
-
-
-
-
     //getters and setters
     public JList getGoalList() {
         return goalList;
@@ -414,37 +409,35 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     }
 
 
-    //sound
+    // MODIFIES: this
+    // EFFECTS: used .wav file to play a sound
     // CITATION: used SOUND: downloaded from Sound Jay https://www.soundjay.com/magic-sound-effect.html
     // CITATION: method modled from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
     public void playsound() {
 
-        try
-        {
+        try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
         }
-
     }
 
 
-
+    // EFFECTS: is not changed
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: runs the Strive GUI
     public static void main(String[] args) {
         //SwingUtilities.invokeLater(new Runnable() {
         new StriveGUI();
-
     }
 }
 
