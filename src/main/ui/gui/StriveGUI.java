@@ -12,8 +12,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
 //CITATION: modeled off of List Demo Project
 // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 
@@ -42,6 +47,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private JScrollPane scrollPane;
     private JTextField newGoal;
     private JPanel buttonPanel;
+    private static String SOUND = "./data/magic-chime-01.wav";
     private int index;
     private static int WIDTH = 400;
     private static int HEIGHT = 400;
@@ -168,6 +174,9 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 //System.out.println("I made it here");
                 convertAgendaToList();
                 //baseList.addElement(makeGoal(nametextField, tftextField, startextField));
+
+                playsound();
+                //nametextField.setText("");
 
             }
         });
@@ -334,12 +343,15 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         buttonPanel.add(loadButton);
     }
 
-    //1 = add, 2 = remove
+
     public void convertAgendaToList() {
+        baseList.clear();
         for (Goal goal: agenda.getGoalList()) {
             int star = goal.getNumStars();
              String newGoal = makeGoal(goal.getName(),convertTimeframe(goal.getTimeFrame()),convertNumStars(star));
-                    baseList.addElement(newGoal);
+
+             baseList.addElement(newGoal);
+
         }
     }
 
@@ -399,6 +411,27 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     public String getTimeframeText() {
         return tftextField.getText();
+    }
+
+
+    //sound
+    // CITATION: used SOUND: downloaded from Sound Jay https://www.soundjay.com/magic-sound-effect.html
+    // CITATION: method modled from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
+    public void playsound() {
+
+        try
+        {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+
     }
 
 
