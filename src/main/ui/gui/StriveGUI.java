@@ -27,7 +27,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
 
     private JList goalList;
     private DefaultListModel baseList;
-    private StriveApp striveApp;
+    //private StriveApp striveApp;
 
     private static final String removeString = "Remove goal";
     private JButton addButton;
@@ -46,13 +46,14 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     private JLabel tf;
     private JLabel stars;
     private JScrollPane scrollPane;
-    private JTextField newGoal;
+    //private JTextField newGoal;
     private JPanel buttonPanel;
     private static String SOUND = "./data/magic-chime-01.wav";
     private int index;
-    private static int WIDTH = 400;
-    private static int HEIGHT = 400;
+    private static int WIDTH = 300;
+    private static int HEIGHT = 300;
 
+    // EFFECTS: runs the Strive GUI
     public StriveGUI() {
 
         super(new BorderLayout());
@@ -159,7 +160,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: creates a button which adds a goal to the list when clicked. Also plays a sounds when clicked
     public void addButton() {
         addButton = new JButton(addString);
-        addButton.setBackground(Color.PINK);
+        addButton.setBackground(new Color(0,165, 190));
         addButton.setOpaque(true);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
