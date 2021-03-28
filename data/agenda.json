@@ -3,13 +3,13 @@
     "goals": [
         {
             "timeframe": "DAILY",
-            "name": "kl",
-            "number of stars": 8
+            "name": "t1",
+            "number of stars": 1
         },
         {
-            "timeframe": "MONTHLY",
-            "name": "lkkl",
-            "number of stars": 99999999
+            "timeframe": "YEARLY",
+            "name": "t4",
+            "number of stars": 4
         }
     ]
 }
