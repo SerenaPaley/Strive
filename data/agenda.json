@@ -1,8 +1,15 @@
 {
     "name": "Serena's Goals",
-    "goals": [{
-        "timeframe": "MONTHLY",
-        "name": "t3",
-        "number of stars": 3
-    }]
+    "goals": [
+        {
+            "timeframe": "WEEKLY",
+            "name": "two",
+            "number of stars": 2
+        },
+        {
+            "timeframe": "MONTHLY",
+            "name": "three",
+            "number of stars": 3
+        }
+    ]
 }

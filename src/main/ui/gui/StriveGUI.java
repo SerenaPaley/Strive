@@ -136,7 +136,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         addButtonLocation();
     }
 
-    // REQUIRES: chooseing a timeframe of daily, weekly, monthly or yearly
+    // REQUIRES: choosing a timeframe of daily, weekly, monthly or yearly
     // MODIFIES: this
     // EFFECTS: creates a button which adds a goal to the list when clicked. Also plays a sounds when clicked
 
@@ -170,7 +170,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         buttonPanel.add(addButton);
     }
 
-
     // MODIFIES: this
     // EFFECTS: creates a button which removes a goal from the list when clicked
     public void removeButton() {
@@ -197,7 +196,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
         removeButton.setPreferredSize(new Dimension(200, 200));
         buttonPanel.add(removeButton);
     }
-
 
     // EFFECTS: creates a text field for the goal name
     public void nameText() {
