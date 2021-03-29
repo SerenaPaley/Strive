@@ -4,7 +4,6 @@ import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.StriveApp;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -139,7 +138,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // REQUIRES: choosing a timeframe of daily, weekly, monthly or yearly
     // MODIFIES: this
     // EFFECTS: creates a button which adds a goal to the list when clicked. Also plays a sounds when clicked
-
     public void addButton() {
         addButton = new JButton(addString);
         addButton.setBackground(new Color(0,165, 190));
@@ -154,7 +152,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 agenda.addGoal(goalToAdd);
                 convertAgendaToList();
                //sound
-                playsound();
+                playSound();
                 nametextField.setText("");
                 tftextField.setText("");
                 startextField.setText("");
@@ -182,9 +180,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 index = goalList.getSelectedIndex();
                 baseList.remove(index);
                 baseList.removeElement(index);
-                //System.out.println("I am in the action listener");
                 agenda.removeGoal(index + 1);
-                //System.out.println("I made it here");
                 convertAgendaToList();
             }
         });
@@ -220,7 +216,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: changes location and size for time frame text field
     public void timeframeTextLocation() {
         tftextField.setPreferredSize(new Dimension(100, 75));
-        //tftextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(tftextField);
     }
 
@@ -233,7 +228,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: changes location and size for star text field
     public void starTextLocation() {
         startextField.setPreferredSize(new Dimension(100, 75));
-        //startextField.setLocation((WIDTH / 2) + 200, HEIGHT / 2 + 400);
         buttonPanel.add(startextField);
     }
 
@@ -247,7 +241,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: adds a name label to button panel
     public void nameLabel() {
         name = new JLabel("Goal Name");
-        //name.setLocation(((WIDTH / 2) + 100), HEIGHT / 2 + 380);
         buttonPanel.add(name);
     }
 
@@ -255,7 +248,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: adds a time frame label to button panel
     public void tfLabel() {
         tf = new JLabel("Time Frame");
-       // tf.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
         buttonPanel.add(tf);
     }
 
@@ -263,7 +255,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: adds a star label to button panel
     public void starsLabel() {
         stars = new JLabel("Number of Stars");
-        //stars.setLocation(((WIDTH / 2) + 200), HEIGHT / 2 + 380);
         buttonPanel.add(stars);
     }
 
@@ -292,7 +283,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: changes loction and size of save button
     public void saveButtonLocation() {
         saveButton.setPreferredSize(new Dimension(100, 100));
-        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(saveButton);
     }
 
@@ -319,7 +309,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: changes location and size of load button
     public void loadButtonLocation() {
         loadButton.setPreferredSize(new Dimension(100, 100));
-        //addButton.setLocation((WIDTH / 2), HEIGHT / 2 + 200);
         buttonPanel.add(loadButton);
     }
 
@@ -394,7 +383,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: used .wav file to play a sound
     // CITATION: used SOUND: downloaded from Sound Jay https://www.soundjay.com/magic-sound-effect.html
     // CITATION: method modeled from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
-    public void playsound() {
+    public void playSound() {
 
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND).getAbsoluteFile());
