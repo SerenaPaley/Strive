@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NegativeStarsException;
 import model.Agenda;
 import model.Goal;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public class JsonWriterTest extends JsonTest{
             agenda = reader.read();
             assertEquals("My agenda", agenda.getName());
             assertEquals(0, agenda.getGoalList().size());
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             fail("Exception should not have been thrown");
         }
     }
@@ -66,7 +67,7 @@ public class JsonWriterTest extends JsonTest{
             assertEquals(1, agenda.getGoalListCompleted().size());
             checkGoal("Eat healthy", Goal.TimeFrame.DAILY, 3, goals.get(0));
             checkGoal("Sleep early", Goal.TimeFrame.WEEKLY, 5, goals.get(1));
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             fail("Exception should not have been thrown");
         }
     }

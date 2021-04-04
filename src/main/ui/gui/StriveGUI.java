@@ -1,5 +1,6 @@
 package ui.gui;
 
+import exceptions.NegativeStarsException;
 import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
@@ -148,7 +149,12 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 String timeframeForGoal = tftextField.getText();
                 int starValue = Integer.parseInt(startextField.getText());
                 Goal.TimeFrame stringToTf = convertStringToTimeframe(timeframeForGoal);
-                Goal goalToAdd = new Goal(nametextField.getText(),stringToTf,starValue);
+                Goal goalToAdd = null;
+                try {
+                    goalToAdd = new Goal(nametextField.getText(),stringToTf,starValue);
+                } catch (NegativeStarsException f) {
+                    System.out.println("caught exception");
+                }
                 agenda.addGoal(goalToAdd);
                 convertAgendaToList();
                //sound
@@ -297,7 +303,7 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 try {
                     agenda = jsonReader.read();
                     System.out.println("Successfully loaded " + agenda.getName() + " from " + JSON_STORE);
-                } catch (IOException d) {
+                } catch (IOException | NegativeStarsException d) {
                     System.out.println("Error: unable to read from file: " + JSON_STORE);
                 }
                 convertAgendaToList();

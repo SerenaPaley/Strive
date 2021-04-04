@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeStarsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class AgendaTest {
     Goal test5;
 
     @BeforeEach
-    void setup() {
+    void setup() throws NegativeStarsException {
         testAgenda = new Agenda("myAgenda");
         test1 = new Goal("go to sleep early", Goal.TimeFrame.DAILY, 5);
         test2 = new Goal("eat healthy", Goal.TimeFrame.WEEKLY, 9);

@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.NegativeStarsException;
 import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
@@ -10,6 +11,8 @@ import java.util.Scanner;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 
 // Console based user interface for Strive
 // CITATION: methods using JSON are modeled from the JsonSerializatioinDemo
@@ -22,6 +25,7 @@ public class StriveApp {
     private Scanner userChoice;
     JsonReader jsonReader;
     JsonWriter jsonWriter;
+    private Goal inputGoal;
 
     public Agenda getMyAgenda() {
         return myAgenda;
@@ -152,7 +156,12 @@ public class StriveApp {
         System.out.println("How many stars is this goal?"); // must be a number >= 0
         int numStars = userChoice.nextInt();
         //create new goal
-        return new Goal(chooseGoal, timeFrameEnum, numStars);
+        try {
+            inputGoal = new Goal(chooseGoal, timeFrameEnum, numStars);
+        } catch (NegativeStarsException e) {
+            System.out.println("caught the NegativeStarsException");
+        }
+        return inputGoal;
     }
 
     // MODIFIES: this
@@ -252,7 +261,7 @@ public class StriveApp {
         try {
             myAgenda = jsonReader.read();
             System.out.println("Successfully loaded " + myAgenda.getName() + " from " + JSON_STORE);
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             System.out.println("Error: unable to reade from file: " + JSON_STORE);
         }
     }
