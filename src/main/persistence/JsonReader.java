@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NegativeStarsException;
 import model.Agenda;
 import model.Goal;
 
@@ -22,7 +23,7 @@ public class JsonReader {
 
     //EFFECTS: reads Agenda from file and return it.
     // Throw IOException if an error occurs while reading the file
-    public Agenda read() throws IOException {
+    public Agenda read() throws IOException, NegativeStarsException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return checkAgenda(jsonObject);
@@ -38,7 +39,7 @@ public class JsonReader {
     }
 
     //EFFECTS: looks through Agenda in JSON object and returns the agenda
-    private Agenda checkAgenda(JSONObject jsonObject) {
+    private Agenda checkAgenda(JSONObject jsonObject) throws NegativeStarsException {
         String name = jsonObject.getString("name");
         Agenda agenda = new Agenda(name);
         addGoals(agenda, jsonObject);
@@ -47,7 +48,7 @@ public class JsonReader {
 
     // MODIFIES: agenda
     // EFFECTS: checks the goals in JSON object and adds them to the agenda
-    private void addGoals(Agenda agenda, JSONObject jsonObject) {
+    private void addGoals(Agenda agenda, JSONObject jsonObject) throws NegativeStarsException {
         JSONArray jsonArray = jsonObject.getJSONArray("goals");
         for (Object json : jsonArray) {
             JSONObject nextGoal = (JSONObject) json;
@@ -57,7 +58,7 @@ public class JsonReader {
 
     // MODIFIES: agenda
     // EFFECTS: checks goal in JSON object and adds them to the agenda
-    private void addGoal(Agenda agenda, JSONObject jsonObject) {
+    private void addGoal(Agenda agenda, JSONObject jsonObject) throws NegativeStarsException {
         String name = jsonObject.getString("name");
         Goal.TimeFrame timeframe = Goal.TimeFrame.valueOf(jsonObject.getString("timeframe"));
         int numStars = jsonObject.getInt("number of stars");

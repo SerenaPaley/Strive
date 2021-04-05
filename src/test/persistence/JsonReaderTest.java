@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NegativeStarsException;
 import model.Agenda;
 import model.Goal;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ class JsonReaderTest extends JsonTest {
         try {
             Agenda agenda = reader.read();
             fail("Should be IOException");
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             //all good
         }
     }
@@ -32,13 +33,13 @@ class JsonReaderTest extends JsonTest {
             assertEquals("My agenda", agenda.getName());
             assertEquals(0, agenda.getGoalList().size());
             assertEquals(0, agenda.getGoalListCompleted().size());
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             fail("File not read");
         }
     }
 
     @Test
-    void testReadergeneralAgenda() {
+    void testReaderGeneralAgenda() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralAgenda.json");
         try {
             Agenda agenda = reader.read();
@@ -47,7 +48,7 @@ class JsonReaderTest extends JsonTest {
             assertEquals(2, agenda.getGoalList().size());
             checkGoal("Eat healthy", Goal.TimeFrame.DAILY, 3, goals.get(0));
             checkGoal("Sleep early", Goal.TimeFrame.WEEKLY, 5, goals.get(1));
-        } catch (IOException e) {
+        } catch (IOException | NegativeStarsException e) {
             fail("File not read");
         }
     }
