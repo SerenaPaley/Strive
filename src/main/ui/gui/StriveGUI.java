@@ -1,5 +1,6 @@
 package ui.gui;
 
+import exception.EmptyGoalListException;
 import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
@@ -180,7 +181,11 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
                 index = goalList.getSelectedIndex();
                 baseList.remove(index);
                 baseList.removeElement(index);
-                agenda.removeGoal(index + 1);
+                try {
+                    agenda.removeGoal(index + 1);
+                } catch (EmptyGoalListException emptyGoalListException) {
+                    System.out.println("caught exception");
+                }
                 convertAgendaToList();
             }
         });

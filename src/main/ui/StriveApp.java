@@ -1,5 +1,6 @@
 package ui;
 
+import exception.EmptyGoalListException;
 import model.Agenda;
 import model.Goal;
 import persistence.JsonReader;
@@ -40,7 +41,7 @@ public class StriveApp {
     }
 
     // EFFECTS: runs the Strive application
-    public StriveApp() throws FileNotFoundException {
+    public StriveApp() throws FileNotFoundException, EmptyGoalListException {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
         runStrive();
@@ -48,7 +49,7 @@ public class StriveApp {
 
     // MODIFIES: this
     // EFFECTS: manages user input
-    private void runStrive() {
+    private void runStrive() throws EmptyGoalListException {
         boolean quit = false;
         String command = null;
 
@@ -102,7 +103,7 @@ public class StriveApp {
 
     // MODIFIES: this
     // EFFECTS: directs next function based on user input
-    private void completeTask(String command) {
+    private void completeTask(String command) throws EmptyGoalListException {
         if (command.equals("A")) {
             goAdd();
         } else if (command.equals("R")) {
@@ -163,7 +164,7 @@ public class StriveApp {
 
     // MODIFIES:this
     // EFFECTS: removes goal from list based on number assigned when printed
-    private void goRemove() {
+    private void goRemove() throws EmptyGoalListException {
         printGoals();
         System.out.println("Which goal number do you want to remove?");
         int removePos = userChoice.nextInt();
@@ -174,7 +175,7 @@ public class StriveApp {
     // REQUIRES: >= 1 goal in agenda
     // MODIFIES:this
     // EFFECTS: update elements of existing goal
-    private void goUpdate() {
+    private void goUpdate() throws EmptyGoalListException {
         printGoals();
         System.out.println("Which goal do you want to update?");
         int updatePos = userChoice.nextInt();
@@ -190,7 +191,7 @@ public class StriveApp {
     // REQUIRES: >= 1 goal in agenda
     // MODIFIES:this
     // EFFECTS: marks a goal as complete and moves it to completed list
-    private void checkOffGoal() {
+    private void checkOffGoal() throws EmptyGoalListException {
         printGoals();
         System.out.println("Which goal is completed?");
         int finGoal = userChoice.nextInt();

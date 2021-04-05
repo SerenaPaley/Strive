@@ -36,3 +36,8 @@ In the future, *Strive* will include a rewards system where users can set their 
 - As a user, I want to be able to view a list of goals separated into daily, weekly, monthly, yearly, and completed goals.
 - As a user, I want to be able to save my agenda filled with goals to a file
 - As a user,  I want to have the option to load a saved agenda from a file when the application starts
+
+### Phase 4: Task 2
+I chose to complete option 1: Test and design a class in your model package that is robust <br>
+I made my Agenda class robust by introducing a checked exception called EmptyGoalListException <br>
+The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  longer have a requires clause

@@ -1,5 +1,6 @@
 package model;
 
+import exception.EmptyGoalListException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class AgendaTest {
     }
 
     @Test
-    void testRemoveGoal() {
+    void testRemoveGoalNoExceptionThrown() {
         assertEquals(0, testAgenda.getGoalList().size());
         //add goals
         testAgenda.addGoal(test2);
@@ -50,7 +51,11 @@ class AgendaTest {
         testAgenda.addGoal(test4);
         assertEquals(3, testAgenda.getGoalList().size());
         //remove goal
-        testAgenda.removeGoal(2);
+        try {
+            testAgenda.removeGoal(2);
+        } catch (EmptyGoalListException e) {
+            fail("Caught EmptyGoalListException");
+        }
         assertEquals(2, testAgenda.getGoalList().size());
         //check size
         testAgenda.getGoalList().remove(1);
@@ -58,21 +63,40 @@ class AgendaTest {
     }
 
     @Test
-    void testRemoveGoalNotValid() {
+    void testRemoveGoalThrowsException() {
         assertEquals(0, testAgenda.getGoalList().size());
-        testAgenda.removeGoal(0);
+        try {
+            testAgenda.removeGoal(0);
+        } catch (EmptyGoalListException e) {
+            //all good, should catch exception
+        }
         assertEquals(0, testAgenda.getGoalList().size());
     }
 
     @Test
-    void testUpdateGoal() {
+    void testUpdateGoalNoExceptionThrown() {
         assertEquals(0, testAgenda.getGoalList().size());
         testAgenda.addGoal(test2);
         testAgenda.addGoal(test3);
         testAgenda.addGoal(test4);
         assertEquals(3, testAgenda.getGoalList().size());
-        testAgenda.updateGoal(3, test4);
+        try {
+            testAgenda.updateGoal(3, test4);
+        } catch (EmptyGoalListException e) {
+            fail("Caught EmptyGoalListException");
+        }
         assertEquals(3, testAgenda.getGoalList().size());
+    }
+
+    @Test
+    void testUpdateGoalExceptionThrown() {
+        assertEquals(0, testAgenda.getGoalList().size());
+        try {
+            testAgenda.updateGoal(3, test4);
+        } catch (EmptyGoalListException e) {
+           //all good, should catch exception
+        }
+        assertEquals(0, testAgenda.getGoalList().size());
     }
 
     @Test

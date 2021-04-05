@@ -1,5 +1,6 @@
 package model;
 
+import exception.EmptyGoalListException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.CanWrite;
@@ -57,19 +58,26 @@ public class Agenda implements CanWrite {
         completedList.add(goal);
     }
 
-    // REQUIRES: at least one goal in goalList
+
     // MODIFIES: this
-    // EFFECTS: removes goal from agenda (based off number in printGoals)
-    public void removeGoal(int removePos) {
+    // EFFECTS: removes goal from agenda (based off number in printGoals),
+    // throws EmptyGoalListException is goalList is empty
+    public void removeGoal(int removePos) throws EmptyGoalListException {
+        if (goalList.isEmpty()) {
+            throw  new EmptyGoalListException();
+        }
         if (removePos > 0) {
             goalList.remove(removePos - 1);
         }
     }
 
-    // REQUIRES: at least one goal in goalList
     // MODIFIES: this
-    // EFFECTS: updates an existing goal
-    public void updateGoal(int goalPos, Goal newGoal) {
+    // EFFECTS: updates an existing goal,
+    // throws EmptyGoalListException is goalList is empty
+    public void updateGoal(int goalPos, Goal newGoal) throws EmptyGoalListException {
+        if (goalList.isEmpty()) {
+            throw  new EmptyGoalListException();
+        }
         goalList.set((goalPos - 1), newGoal);
     }
 
