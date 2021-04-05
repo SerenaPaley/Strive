@@ -66,9 +66,7 @@ public class Agenda implements CanWrite {
         if (goalList.isEmpty()) {
             throw  new EmptyGoalListException();
         }
-        if (removePos > 0) {
-            goalList.remove(removePos - 1);
-        }
+        goalList.remove(removePos - 1);
     }
 
     // MODIFIES: this
