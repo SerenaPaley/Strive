@@ -22,7 +22,7 @@ public class JsonReader {
 
     //EFFECTS: reads Agenda from file and return it.
     // Throw IOException if an error occurs while reading the file
-    public Agenda read() throws IOException{
+    public Agenda read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return checkAgenda(jsonObject);
