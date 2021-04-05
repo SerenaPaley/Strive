@@ -1,10 +1,11 @@
 package persistence;
 
-import exceptions.NegativeStarsException;
+
 import model.Agenda;
 import model.Goal;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,20 +31,25 @@ public class JsonWriterTest extends JsonTest{
 
     @Test
     void testWriterEmptyWorkroom() {
+        Agenda agenda = new Agenda("My agenda");
+        JsonWriter writer = new JsonWriter("./data/testWriterEmptyAgenda.json");
         try {
-            Agenda agenda = new Agenda("My agenda");
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyAgenda.json");
             writer.open();
-            writer.write(agenda);
-            writer.close();
-
-            JsonReader reader = new JsonReader("./data/testWriterEmptyAgenda.json");
-            agenda = reader.read();
-            assertEquals("My agenda", agenda.getName());
-            assertEquals(0, agenda.getGoalList().size());
-        } catch (IOException | NegativeStarsException e) {
-            fail("Exception should not have been thrown");
+        } catch (FileNotFoundException e) {
+            System.out.println("caught exception");
         }
+        writer.write(agenda);
+        writer.close();
+
+        JsonReader reader = new JsonReader("./data/testWriterEmptyAgenda.json");
+        try {
+            agenda = reader.read();
+        } catch (IOException e) {
+            System.out.println("caught exception");
+        }
+        assertEquals("My agenda", agenda.getName());
+        assertEquals(0, agenda.getGoalList().size());
+
     }
 
     @Test
@@ -67,7 +73,7 @@ public class JsonWriterTest extends JsonTest{
             assertEquals(1, agenda.getGoalListCompleted().size());
             checkGoal("Eat healthy", Goal.TimeFrame.DAILY, 3, goals.get(0));
             checkGoal("Sleep early", Goal.TimeFrame.WEEKLY, 5, goals.get(1));
-        } catch (IOException | NegativeStarsException e) {
+        } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
     }

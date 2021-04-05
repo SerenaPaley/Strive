@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.NegativeStarsException;
 import org.json.JSONObject;
 import persistence.CanWrite;
 
@@ -19,10 +18,7 @@ public class Goal implements CanWrite {
 
     // EFFECTS: creates a new goal. including description, timeframe and number of stars,
     // throws NegativeStarsException if numStars is <0
-    public Goal(String goal, TimeFrame goalTimeFrame, int numStars) throws NegativeStarsException {
-        if (numStars < 0) {
-            throw new NegativeStarsException();
-        }
+    public Goal(String goal, TimeFrame goalTimeFrame, int numStars)  {
         this.name = goal;
         this.timeFrame = goalTimeFrame;
         this.numStars = numStars;
