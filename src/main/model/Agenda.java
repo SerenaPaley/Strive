@@ -97,7 +97,6 @@ public class Agenda implements CanWrite {
         for (Goal c : completedList) {
             jsonArray.put(c.toJson());
         }
-
         return jsonArray;
     }
 
