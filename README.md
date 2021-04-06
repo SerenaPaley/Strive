@@ -46,4 +46,4 @@ The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  l
 ***Refactoring***
 
 - Reduce duplication in the StriveGUI class for buttons by making them implement an interface
-- Remove the association from StriveApp to goal since StriveApp already has an instance of JsonReader which has a Goal
+- Remove the association from StriveApp to Goal since StriveApp already has an instance of JsonReader which has a Goal
