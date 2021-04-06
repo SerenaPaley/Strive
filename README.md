@@ -41,3 +41,9 @@ In the future, *Strive* will include a rewards system where users can set their 
 I chose to complete option 1: Test and design a class in your model package that is robust <br>
 I made my Agenda class robust by introducing a checked exception called EmptyGoalListException <br>
 The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  longer have a requires clause
+
+### Phase 4: Task 3
+***Refactoring***
+
+- Reduce duplication in the StriveGUI class for buttons by making them implement an interface
+- Remove the association from StriveApp to goal since StriveApp already has an instance of JsonReader which has a Goal

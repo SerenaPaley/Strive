@@ -207,7 +207,6 @@ public class StriveGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: changes location and size for name text field
     public void nameTextLocation() {
         nametextField.setPreferredSize(new Dimension(150, 75));
-        //nametextField.setLocation((WIDTH / 2) + 100, HEIGHT / 2 + 400);
         buttonPanel.add(nametextField);
     }
 
