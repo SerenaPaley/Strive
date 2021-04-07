@@ -40,7 +40,7 @@ In the future, *Strive* will include a rewards system where users can set their 
 ### Phase 4: Task 2
 I chose to complete option 1: Test and design a class in your model package that is robust <br>
 I made my Agenda class robust by introducing a checked exception called EmptyGoalListException <br>
-The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  longer have a requires clause
+The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  longer have a requires clause to ensure there is at least one goal in the agenda
 
 ### Phase 4: Task 3
 ***Refactoring***

@@ -16,7 +16,6 @@ public class Agenda implements CanWrite {
     ArrayList<Goal> goalList = new ArrayList<Goal>();
     ArrayList<Goal> completedList = new ArrayList<Goal>();
 
-    // REQUIRES: agenda name length > 0
     // EFFECTS: creates a new agenda for goals to be stored in.
     public Agenda(String agendaName) {
         name = agendaName;
