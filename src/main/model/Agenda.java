@@ -60,7 +60,7 @@ public class Agenda implements CanWrite {
 
     // MODIFIES: this
     // EFFECTS: removes goal from agenda (based off number in printGoals),
-    // throws EmptyGoalListException is goalList is empty
+    // throws EmptyGoalListException if goalList is empty
     public void removeGoal(int removePos) throws EmptyGoalListException {
         if (goalList.isEmpty()) {
             throw  new EmptyGoalListException();
@@ -70,7 +70,7 @@ public class Agenda implements CanWrite {
 
     // MODIFIES: this
     // EFFECTS: updates an existing goal,
-    // throws EmptyGoalListException is goalList is empty
+    // throws EmptyGoalListException if goalList is empty
     public void updateGoal(int goalPos, Goal newGoal) throws EmptyGoalListException {
         if (goalList.isEmpty()) {
             throw  new EmptyGoalListException();
