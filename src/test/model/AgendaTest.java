@@ -93,6 +93,7 @@ class AgendaTest {
         assertEquals(0, testAgenda.getGoalList().size());
         try {
             testAgenda.updateGoal(3, test4);
+
         } catch (EmptyGoalListException e) {
            //all good, should catch exception
         }

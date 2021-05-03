@@ -46,6 +46,6 @@ The methods removeGoal() and updateGoal() throw EmptyGoalListException and no  l
 ***Refactoring***
 
 - Reduce duplication in the StriveGUI class for buttons by extracting common functionality into methods
-- Split the Goal class into two classes. One for the specific goal and one for the enumerated time-frame
+- Split the Goal class into two classes. One for the specific goal and one for the enumerated time-eaframe
 - Remove the association from StriveApp to Goal since StriveApp already has an instance of JsonReader which has a Goal instance 
 

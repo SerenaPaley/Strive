@@ -1,8 +1,8 @@
 {
     "name": "Serena's Goals",
     "goals": [{
-        "timeframe": "DAILY",
-        "name": "t1",
-        "number of stars": 3
+        "timeframe": "YEARLY",
+        "name": "sleep early",
+        "number of stars": 400
     }]
 }
